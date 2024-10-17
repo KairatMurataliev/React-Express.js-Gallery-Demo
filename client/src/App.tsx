@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import TelegramLoginButton, { TelegramUser } from 'telegram-login-button'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +25,17 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+
+        <TelegramLoginButton
+          botName="gallery_nodejs_bot"
+          dataOnauth={(user: TelegramUser) => console.log(user)}
+        />
+
+        {/*<script async src="https://telegram.org/js/telegram-widget.js?7"*/}
+        {/*        data-telegram-login="my_node_app_bot"*/}
+        {/*        data-size="large"*/}
+        {/*        data-auth-url="http://localhost:3000/auth/telegram/callback"*/}
+        {/*        data-request-access="write"></script>*/}
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
