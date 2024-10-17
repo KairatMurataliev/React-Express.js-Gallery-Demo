@@ -1,26 +1,21 @@
 import jwt from 'jsonwebtoken';
-import { IUser } from '../../types';
+import { IUser } from '../models/user.model';
 
-const SECRET_KEY = 'SECRET_KEY'; // Важно: используй переменную окружения в реальном приложении
+const SECRET_KEY = process.env.JWT_SECRET || 'YOUR_SECRET_KEY';
 
-// Генерация JWT
 export const generateToken = (user: IUser) => {
   return jwt.sign(
     {
       id: user._id,
       telegramId: user.telegramId,
-      name: user.username,
+      username: user.username,
+      role: user.role, // Включаем роль в токен
     },
     SECRET_KEY,
     { expiresIn: '1h' }
   );
 };
 
-// Проверка JWT
 export const verifyToken = (token: string) => {
-  try {
-    return jwt.verify(token, SECRET_KEY);
-  } catch (error) {
-    throw new Error('Invalid Token');
-  }
+  return jwt.verify(token, SECRET_KEY);
 };
