@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Photo} from '../../types';
 import {RootState} from '../store.ts';
-import {submitPhoto, getGallery, getAuthorGallery, removePhoto} from "./galleryThunk";
+// import {submitPhoto, getGallery, getAuthorGallery, removePhoto} from "./galleryThunk";
 
 interface GalleryState {
   list: Photo[];

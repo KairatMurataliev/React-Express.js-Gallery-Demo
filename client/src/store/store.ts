@@ -3,7 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 import {usersReducer} from "./users/usersSlice";
-import {galleryReducer} from "../features/gallery/gallerySlice";
+import {galleryReducer} from "./gallery/gallerySlice.ts";
 
 const usersPersistConfig = {
   key: 'gallery:users',

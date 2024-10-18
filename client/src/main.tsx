@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { persistor, store } from './store/store.ts';
-import { addInterceptors } from './axiosApi';
+import { addInterceptors } from './axios.ts';
 import { PersistGate } from 'redux-persist/integration/react';
 import theme from './theme';
 
