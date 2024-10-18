@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Avatar, Button, Menu, MenuItem} from '@mui/material';
 import {NavLink} from 'react-router-dom';
 import {User} from "../../../types";
-import {useAppDispatch} from "../../../store/hooks.ts";
+import {useAppDispatch} from "../../../store/store-hooks.ts";
 
 interface Props {
   user: User;

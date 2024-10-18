@@ -3,7 +3,8 @@ import passport from 'passport';
 import express from 'express';
 import session from 'express-session';
 
-import auth from './src/routes/auth';
+import users from './src/routes/users';
+import gallery from './src/routes/gallery';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -19,7 +20,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/users', auth);
+app.use('/users', users);
+app.use('/gallery', gallery);
 
 const run = async () => {
   app.listen(PORT, () => {

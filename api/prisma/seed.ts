@@ -2,22 +2,21 @@ import { prisma } from './prisma-client';
 import { hashSync } from 'bcrypt';
 
 async function up() {
-  await prisma.user.createMany({
-    data: [
-      {
-        username: 'User Test',
-        email: 'user@test.ru',
-        password: hashSync('123', 10),
-        role: 'USER',
-      },
-      {
-        username: 'Admin Admin',
-        email: 'admin@test.ru',
-        password: hashSync('123', 10),
-        role: 'ADMIN',
-      },
-    ],
+  const user = await prisma.user.create({
+    username: 'Simple User',
+    email: 'user@user.com',
+    password: hashSync('123', 10),
+    role: 'USER'
   });
+
+  const admin = await prisma.user.create({
+    username: 'Admin Admin',
+    email: 'admin@test.com',
+    password: hashSync('123', 10),
+    role: 'ADMIN',
+  });
+
+
 }
 
 async function down() {
