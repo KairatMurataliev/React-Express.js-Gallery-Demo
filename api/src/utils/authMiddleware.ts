@@ -1,15 +1,9 @@
 import {NextFunction, Request, Response} from 'express';
 import {verifyToken} from './jwt';
-import {HydratedDocument} from "mongoose";
-import User, {IUser} from "../models/user.model";
-
-export interface RequestWithUser extends Request {
-  user: HydratedDocument<IUser>
-}
+import {prisma} from "../../prisma/prisma-client";
 
 export const authMiddleware = async (expressReq: Request, res: Response, next: NextFunction) => {
-  const req = expressReq as RequestWithUser;
-  const authHeader = req.headers['authorization'];
+  const authHeader = expressReq.headers['authorization'];
 
   if (authHeader) {
     const token = authHeader.split(' ')[1];
@@ -17,10 +11,10 @@ export const authMiddleware = async (expressReq: Request, res: Response, next: N
     try {
       const decoded = verifyToken(token);
       if (decoded) {
-        const user = await User.findOne({ token: decoded });
+        const user = await prisma.user.findFirst({where: {token}})
 
         if (user) {
-          req.user = user;
+          expressReq.user = user;
           next();
         }
       }

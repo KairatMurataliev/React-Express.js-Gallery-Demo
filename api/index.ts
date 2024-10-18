@@ -1,10 +1,7 @@
 import cors from 'cors';
 import passport from 'passport';
 import express from 'express';
-import mongoose from 'mongoose';
 import session from 'express-session';
-import dotenv from 'dotenv';
-import config from './config';
 
 import auth from './src/routes/auth';
 
@@ -25,15 +22,8 @@ app.use(passport.session());
 app.use('/users', auth);
 
 const run = async () => {
-  mongoose.set('strictQuery', false);
-  await mongoose.connect(config.db);
-
   app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
-  })
-
-  process.on('exit', () => {
-    mongoose.disconnect();
   })
 }
 

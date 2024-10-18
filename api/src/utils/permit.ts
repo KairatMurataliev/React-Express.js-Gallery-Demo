@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { IUser } from '../models/user.model';
+import {IUser} from "../../types";
 
 export const permit = (...allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {

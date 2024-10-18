@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
-import { IUser } from '../models/user.model';
+import {IUser} from "../../types";
 
 const SECRET_KEY = process.env.JWT_SECRET || 'YOUR_SECRET_KEY';
 
 export const generateToken = (user: IUser) => {
   return jwt.sign(
     {
-      id: user._id,
+      id: user.id,
       telegramId: user.telegramId,
       username: user.username,
       role: user.role, // Включаем роль в токен
