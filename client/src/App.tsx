@@ -1,45 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import TelegramLoginButton, { TelegramUser } from 'telegram-login-button'
+import {LoginButton} from "@telegram-auth/react";
+import {Container, CssBaseline} from "@mui/material";
+import {Route, Routes} from "react-router-dom";
+import AppToolbar from "./components/UI/AppToolbar/AppToolbar.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-
-        <TelegramLoginButton
-          botName="gallery_nodejs_bot"
-          dataOnauth={(user: TelegramUser) => console.log(user)}
-        />
-
-        {/*<script async src="https://telegram.org/js/telegram-widget.js?7"*/}
-        {/*        data-telegram-login="my_node_app_bot"*/}
-        {/*        data-size="large"*/}
-        {/*        data-auth-url="http://localhost:3000/auth/telegram/callback"*/}
-        {/*        data-request-access="write"></script>*/}
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CssBaseline/>
+      <header>
+        <AppToolbar/>
+      </header>
+      <main>
+        <div className="card">
+          <LoginButton
+            botUsername={'gallery_nodejs_bot'}
+            onAuthCallback={(data) => {
+              console.log(data);
+            }}
+            buttonSize='medium'
+            cornerRadius={5}
+            showAvatar={false}
+            lang="en"
+          />
+        </div>
+        <Container maxWidth="xl">
+          <Routes>
+            {/*<Route path="/" element={<Gallery/>}/>*/}
+            {/*<Route path="/login" element={<Login/>}/>*/}
+            {/*<Route path="/gallery/:id" element={<Gallery/>}/>*/}
+            {/*<Route path="/gallery/add" element={<SubmitNewPhoto/>}/>*/}
+          </Routes>
+        </Container>
+      </main>
     </>
   )
 }
