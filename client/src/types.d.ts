@@ -1,34 +1,13 @@
-export interface LoginMutation {
-  email: string;
-  password: string;
-}
-
-export interface RegisterMutation {
-  email: string;
-  username: string;
-  avatar: null | string;
-  password: string;
-}
-
-export interface User {
-  id: string;
-  email: string;
-  username: string;
-  avatar: string;
-  token: string;
-  role: string;
-}
-
-export interface RegisterResponse {
+export type RegisterResponse = {
   message: string;
   user: User;
 }
 
-export interface GlobalError {
+export type GlobalError = {
   error: string;
 }
 
-export interface ValidationError {
+export type ValidationError = {
   errors: {
     [key: string]: {
       name: string;
@@ -40,17 +19,53 @@ export interface ValidationError {
   _name: string;
 }
 
-export interface PhotoMutation {
+export type PhotoMutation = {
   title: string;
   image: null | string;
+  description?: string
 }
 
-export interface Photo {
+export type LoginMutation = {
+  email: string;
+  password: string;
+}
+
+export type RegisterMutation = {
+  email: string;
+  username: string;
+  avatar: null | string;
+  password: string;
+}
+
+export type CategoryMutation = {
+  name: string;
+}
+
+export type User = {
+  id: string;
+  email: string;
+  username: string;
+  avatar: string;
+  token: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type Photo = {
   id: string;
   title: string;
-  image: null | string;
-  author: {
-    id: string;
-    username: string;
-  }
+  image: string;
+  author: User,
+  category: Category;
+  description?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type Category = {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
 }

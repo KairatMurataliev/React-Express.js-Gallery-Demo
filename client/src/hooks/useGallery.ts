@@ -24,11 +24,15 @@ export const useGallery = (id?: string) => {
 
   const handleOpen = (id: string) => {
     setOpen(true);
-    const selected = photosList.find(item => item._id === id);
+    const selected = photosList.find(({id: itemId}) => itemId === id);
     if (selected) setSelectedPhoto(selected);
   };
 
-  const handleClose = () => setOpen(prev => !prev)
+  const handleClose = () => setOpen(prev => !prev);
+
+  const handleLike = (id: string) => {
+    console.log(id, 'PHOTO  ID');
+  }
 
   return {
     open,
@@ -41,6 +45,7 @@ export const useGallery = (id?: string) => {
     setOpen,
     dispatch,
     handleOpen,
-    handleClose
+    handleClose,
+    handleLike
   }
 }

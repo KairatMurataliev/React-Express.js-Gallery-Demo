@@ -27,52 +27,88 @@ async function up() {
     }
   });
 
+  const natureCategory = await prisma.category.create({
+    data: {
+      name: 'Nature',
+    }
+  });
+  const animeCategory = await prisma.category.create({
+    data: {
+      name: 'Anime',
+    }
+  });
+  const militaryCategory = await prisma.category.create({
+    data: {
+      name: 'Military',
+    }
+  });
+
   await prisma.photo.createMany({
     data: [
       {
         title: 'Photo 1',
         image: 'seed/photo1.jpg',
+        description: 'Here is some photo description',
         authorId: user1.id,
+        categoryId: natureCategory.id,
       },
       {
         title: 'Photo 2',
         image: 'seed/photo2.jpg',
+        description: 'Here is some photo description',
         authorId: user1.id,
+        categoryId: natureCategory.id,
       },
       {
         title: 'Photo 3',
         image: 'seed/photo3.jpg',
+        description: 'Here is some photo description',
         authorId: user1.id,
+        categoryId: natureCategory.id,
       },
+
       {
         title: 'Photo 1',
         image: 'seed/photo4.jpg',
+        description: 'Here is some photo description',
         authorId: user2.id,
+        categoryId: animeCategory.id
       },
       {
         title: 'Photo 2',
         image: 'seed/photo5.jpg',
+        description: 'Here is some photo description',
         authorId: user2.id,
+        categoryId: animeCategory.id
       },
       {
         title: 'Photo 3',
         image: 'seed/photo6.jpg',
+        description: 'Here is some photo description',
         authorId: user2.id,
+        categoryId: animeCategory.id
       },
+
       {
         title: 'Photo 1',
         image: 'seed/photo7.jpeg',
+        description: 'Here is some photo description',
         authorId: admin.id,
+        categoryId: militaryCategory.id
       },
       {
         title: 'Photo 2',
         image: 'seed/photo8.jpg',
+        description: 'Here is some photo description',
         authorId: admin.id,
+        categoryId: militaryCategory.id
       },
       {
         title: 'Photo 3',
         image: 'seed/photo9.jpg',
+        description: 'Here is some photo description',
         authorId: admin.id,
+        categoryId: militaryCategory.id
       }
     ]
   })

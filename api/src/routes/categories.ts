@@ -16,11 +16,8 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
-    const allGallery = await prisma.photo.findMany(
-      { include: { author: true } }
-    );
-    console.log(allGallery);
-    res.send(allGallery);
+    const allCategories = await prisma.category.findMany();
+    res.send(allCategories);
   } catch (err) {
     console.log(err);
   }

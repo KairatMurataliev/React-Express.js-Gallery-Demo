@@ -5,7 +5,7 @@ import {RootState} from "../store.ts";
 
 export const getGallery = createAsyncThunk<Photo[], undefined, { state: RootState }>(
   'gallery/get',
-  async (arg, {getState}) => {
+  async (_, {getState}) => {
     const user = getState().users.user;
     try {
       const response = await axiosApi.get<Photo[]>('/gallery', {
@@ -13,6 +13,7 @@ export const getGallery = createAsyncThunk<Photo[], undefined, { state: RootStat
       });
       return response.data;
     } catch (err) {
+      console.log(err);
       throw new Error('Not Authorized');
     }
   });
@@ -24,18 +25,19 @@ export const getAuthorGallery = createAsyncThunk<Photo[], string>(
       const response = await axiosApi.get<Photo[]>(`/gallery?author=${id}`);
       return response.data;
     } catch (err) {
+      console.log(err);
       throw new Error('Not Authorized');
     }
   });
 
 export const submitPhoto = createAsyncThunk<void, PhotoMutation>(
   'gallery/submit',
-  async (cocktail) => {
+  async (photo) => {
     const formData = new FormData();
 
-    const keys = Object.keys(cocktail) as (keyof PhotoMutation)[];
+    const keys = Object.keys(photo) as (keyof PhotoMutation)[];
     keys.forEach((key) => {
-      let value = cocktail[key];
+      let value = photo[key];
       if (value !== null) {
         if (Array.isArray(value)) {
           value = JSON.stringify(value);
@@ -56,6 +58,7 @@ export const removePhoto = createAsyncThunk<void, string, { state: RootState }>(
           headers: {Authorization: user.token},
         });
       } catch (err) {
+        console.log(err);
         throw new Error('Remove photo error.');
       }
     }

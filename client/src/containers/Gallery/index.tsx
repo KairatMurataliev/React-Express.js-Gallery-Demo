@@ -10,7 +10,18 @@ import Grid from "@mui/material/Grid2";
 const Gallery = () => {
   const {id} = useParams() as { id: string };
   const search = useLocation();
-  const {open, selectedPhoto, photosList, loading, removeLoading, user, setOpen, setSelectedPhoto, dispatch, handleOpen, handleClose } = useGallery(id || undefined);
+  const {
+    open,
+    selectedPhoto,
+    photosList,
+    loading,
+    removeLoading,
+    user,
+    dispatch,
+    handleOpen,
+    handleClose,
+    handleLike
+  } = useGallery(id || undefined);
 
   const onPhotoRemove = async (photoId: string) => {
     await dispatch(removePhoto(photoId));
@@ -22,6 +33,9 @@ const Gallery = () => {
   };
 
   const {pathname} = search;
+
+  console.log(open);
+
   return (
     loading ? <Spinner/> :
       <div style={{marginBottom: '30px'}}>
@@ -42,24 +56,27 @@ const Gallery = () => {
           }
         </Typography>
         <Grid container spacing={2}>
-          {photosList.map(photo => {
-            return (
-              <PhotoItem
-                key={photo.id}
-                title={photo.title}
-                image={photo.image}
-                role={user?.role}
-                removePhoto={() => onPhotoRemove(photo.id)}
-                handleOpen={() => handleOpen(photo._id)}
-                author={photo?.author}
-                userId={user?.id}
-                removeLoading={removeLoading}
-              />
-            )
-          })}
+          {photosList.map(photo => (
+            <PhotoItem
+              key={photo.id}
+              item={photo}
+              role={user?.role}
+              handleRemovePhoto={() => onPhotoRemove(photo.id)}
+              handleOpen={() => handleOpen(photo.id)}
+              userId={user?.id}
+              removeLoading={removeLoading}
+            />
+          ))}
         </Grid>
 
-        {selectedPhoto && <PhotoModal open={open} selectedPhoto={selectedPhoto} handleClose={handleClose} />}
+        {selectedPhoto && open && (
+          <PhotoModal
+            open={open}
+            selectedPhoto={selectedPhoto}
+            handleClose={handleClose}
+            handleLike={handleLike}
+          />
+        )}
       </div>
   );
 };

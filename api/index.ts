@@ -22,6 +22,7 @@ app.use(passport.session());
 
 app.use('/users', users);
 app.use('/gallery', gallery);
+app.use('/categories', gallery);
 
 const run = async () => {
   app.listen(PORT, () => {

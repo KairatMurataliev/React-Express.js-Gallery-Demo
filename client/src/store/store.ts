@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 import {usersReducer} from "./users/usersSlice";
 import {galleryReducer} from "./gallery/gallerySlice.ts";
+import {categoriesReducer} from "./categories/categorySlice.ts";
 
 const usersPersistConfig = {
   key: 'gallery:users',
@@ -12,7 +13,8 @@ const usersPersistConfig = {
 };
 export const rootReducer = combineReducers({
   users: persistReducer(usersPersistConfig, usersReducer),
-  gallery: galleryReducer
+  gallery: galleryReducer,
+  categories: categoriesReducer
 });
 
 export const store = configureStore({

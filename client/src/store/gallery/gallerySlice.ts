@@ -1,8 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Photo} from '../../types';
 import {RootState} from '../store.ts';
-import {getGallery} from "./galleryThunk.ts";
-// import {submitPhoto, getGallery, getAuthorGallery, removePhoto} from "./galleryThunk";
+import {submitPhoto, getGallery, getAuthorGallery, removePhoto} from "./galleryThunk";
 
 interface GalleryState {
   list: Photo[];
@@ -26,15 +25,15 @@ export const gallerySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     // Submit photo
-    // builder.addCase(submitPhoto.pending, (state) => {
-    //   state.submitLoading = true;
-    // });
-    // builder.addCase(submitPhoto.fulfilled, (state) => {
-    //   state.submitLoading = false;
-    // });
-    // builder.addCase(submitPhoto.rejected, (state) => {
-    //   state.submitLoading = false;
-    // });
+    builder.addCase(submitPhoto.pending, (state) => {
+      state.submitLoading = true;
+    });
+    builder.addCase(submitPhoto.fulfilled, (state) => {
+      state.submitLoading = false;
+    });
+    builder.addCase(submitPhoto.rejected, (state) => {
+      state.submitLoading = false;
+    });
 
     // Get Gallery
     builder.addCase(getGallery.pending, (state) => {
@@ -48,27 +47,28 @@ export const gallerySlice = createSlice({
       state.fetchLoading = false;
     });
 
-    // Author
-    // builder.addCase(getAuthorGallery.pending, (state) => {
-    //   state.fetchLoading = true;
-    // });
-    // builder.addCase(getAuthorGallery.fulfilled, (state, {payload: list}) => {
-    //   state.fetchLoading = false;
-    //   state.list = list;
-    // });
-    // builder.addCase(getAuthorGallery.rejected, (state) => {
-    //   state.fetchLoading = false;
-    // });
+    // Author photos get
+    builder.addCase(getAuthorGallery.pending, (state) => {
+      state.fetchLoading = true;
+    });
+    builder.addCase(getAuthorGallery.fulfilled, (state, {payload: list}) => {
+      state.fetchLoading = false;
+      state.list = list;
+    });
+    builder.addCase(getAuthorGallery.rejected, (state) => {
+      state.fetchLoading = false;
+    });
 
-    // builder.addCase(removePhoto.pending, (state) => {
-    //   state.removeLoading = true;
-    // });
-    // builder.addCase(removePhoto.fulfilled, (state) => {
-    //   state.removeLoading = false;
-    // });
-    // builder.addCase(removePhoto.rejected, (state) => {
-    //   state.removeLoading = false;
-    // });
+    // Remove photo
+    builder.addCase(removePhoto.pending, (state) => {
+      state.removeLoading = true;
+    });
+    builder.addCase(removePhoto.fulfilled, (state) => {
+      state.removeLoading = false;
+    });
+    builder.addCase(removePhoto.rejected, (state) => {
+      state.removeLoading = false;
+    });
   },
 });
 

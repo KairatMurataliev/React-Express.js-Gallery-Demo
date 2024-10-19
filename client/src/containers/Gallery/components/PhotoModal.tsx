@@ -1,29 +1,30 @@
-import React from 'react';
-import {Button, Card, CardActions, CardMedia, Modal} from "@mui/material";
-import {baseURL} from "../../../axios.ts";
+import * as React from 'react';
 import {Photo} from "../../../types";
+import { Modal } from "@mui/material";
+import {PhotoDetails} from "./PhotoDetails.tsx";
 
 interface Props {
-  handleClose: () => void;
   selectedPhoto: Photo;
   open: boolean;
+  handleClose: () => void;
+  handleLike: (id: string) => void
 }
 
-export const PhotoModal: React.FC<Props> = ({handleClose, selectedPhoto, open}) => {
+export const PhotoModal: React.FC<Props> = ({selectedPhoto, open, handleClose, handleLike}) => {
   return (
     <Modal
       open={open}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
     >
-      <Card sx={{maxWidth: 600, margin: 'auto', marginTop: '10%'}}>
-        <CardMedia sx={{height: 300}} image={`${baseURL}/${selectedPhoto.image}`} title="Selected"/>
-        <CardActions>
-          <Button size="small" onClick={handleClose}>
-            Close
-          </Button>
-        </CardActions>
-      </Card>
+      <PhotoDetails
+        isModal={true}
+        photoData={selectedPhoto}
+        cardStyle={{maxWidth: 800, margin: 'auto', marginTop: '5%'}}
+        cardMediaStyle={{height: 300}}
+        handleLike={handleLike}
+        handleClose={handleClose}
+      />
     </Modal>
   )
 };
