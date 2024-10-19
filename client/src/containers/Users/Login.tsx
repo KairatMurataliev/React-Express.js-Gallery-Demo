@@ -3,9 +3,9 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { LoginMutation } from '../../types';
 import { Alert, Avatar, Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { selectLoginError } from './usersSlice';
-import {useAppDispatch, useAppSelector} from "../store-hooks.ts";
-import {login} from "./usersThunk.ts";
+import { selectLoginError } from '../../store/users/usersSlice.ts';
+import {useAppDispatch, useAppSelector} from "../../store/store-hooks.ts";
+import {login} from "../../store/users/usersThunk.ts";
 import Grid from "@mui/material/Grid2";
 
 const Login = () => {

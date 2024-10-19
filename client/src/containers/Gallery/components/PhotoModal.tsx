@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Card, CardActions, CardMedia, Modal} from "@mui/material";
-import {baseURL} from "../../axios.ts";
-import {Photo} from "../../types";
+import {baseURL} from "../../../axios.ts";
+import {Photo} from "../../../types";
 
 interface Props {
   handleClose: () => void;

@@ -4,9 +4,9 @@ import { RegisterMutation } from '../../types';
 import { Avatar, Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { selectRegisterError } from './usersSlice';
-import {useAppDispatch, useAppSelector} from "../store-hooks.ts";
-import {register} from "./usersThunk.ts";
+import { selectRegisterError } from '../../store/users/usersSlice.ts';
+import {useAppDispatch, useAppSelector} from "../../store/store-hooks.ts";
+import {register} from "../../store/users/usersThunk.ts";
 import FileInput from "../../components/UI/FileInput/FileInput.tsx";
 
 const Register = () => {

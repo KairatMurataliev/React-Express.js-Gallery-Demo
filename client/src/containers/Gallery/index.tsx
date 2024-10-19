@@ -1,10 +1,11 @@
-import {Button, Card, CardActions, CardMedia, Grid2, Modal, Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import {useParams, useLocation, NavLink} from "react-router-dom";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import {getAuthorGallery, getGallery, removePhoto} from "../../store/gallery/galleryThunk.ts";
 import {useGallery} from "../../hooks/useGallery.ts";
-import {PhotoModal} from "./PhotoModal.tsx";
-import PhotoItem from "./PhotoItem.tsx";
+import {PhotoModal} from "./components/PhotoModal.tsx";
+import PhotoItem from "./components/PhotoItem.tsx";
+import Grid from "@mui/material/Grid2";
 
 const Gallery = () => {
   const {id} = useParams() as { id: string };
@@ -40,23 +41,23 @@ const Gallery = () => {
                 'Gallery:'
           }
         </Typography>
-        <Grid2 container spacing={2}>
+        <Grid container spacing={2}>
           {photosList.map(photo => {
             return (
               <PhotoItem
-                key={photo._id}
+                key={photo.id}
                 title={photo.title}
                 image={photo.image}
                 role={user?.role}
-                removePhoto={() => onPhotoRemove(photo._id)}
+                removePhoto={() => onPhotoRemove(photo.id)}
                 handleOpen={() => handleOpen(photo._id)}
                 author={photo?.author}
-                userId={user?._id}
+                userId={user?.id}
                 removeLoading={removeLoading}
               />
             )
           })}
-        </Grid2>
+        </Grid>
 
         {selectedPhoto && <PhotoModal open={open} selectedPhoto={selectedPhoto} handleClose={handleClose} />}
       </div>
