@@ -1,7 +1,7 @@
 import { GlobalError, User, ValidationError } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store.ts';
-// import { login, register, googleLogin } from './usersThunks';
+import {login, register} from "./usersThunk.ts";
 
 interface UsersState {
   user: User | null;
@@ -28,30 +28,30 @@ export const usersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // builder.addCase(register.pending, (state) => {
-    //   state.registerLoading = true;
-    //   state.registerError = null;
-    // });
-    // builder.addCase(register.fulfilled, (state, { payload: user }) => {
-    //   state.registerLoading = false;
-    //   state.user = user;
-    // });
-    // builder.addCase(register.rejected, (state, { payload: error }) => {
-    //   state.registerLoading = false;
-    //   state.registerError = error || null;
-    // });
-    // builder.addCase(login.pending, (state) => {
-    //   state.loginLoading = true;
-    //   state.loginError = null;
-    // });
-    // builder.addCase(login.fulfilled, (state, { payload: user }) => {
-    //   state.loginLoading = false;
-    //   state.user = user;
-    // });
-    // builder.addCase(login.rejected, (state, { payload: error }) => {
-    //   state.loginLoading = false;
-    //   state.loginError = error || null;
-    // });
+    builder.addCase(register.pending, (state) => {
+      state.registerLoading = true;
+      state.registerError = null;
+    });
+    builder.addCase(register.fulfilled, (state, { payload: user }) => {
+      state.registerLoading = false;
+      state.user = user;
+    });
+    builder.addCase(register.rejected, (state, { payload: error }) => {
+      state.registerLoading = false;
+      state.registerError = error || null;
+    });
+    builder.addCase(login.pending, (state) => {
+      state.loginLoading = true;
+      state.loginError = null;
+    });
+    builder.addCase(login.fulfilled, (state, { payload: user }) => {
+      state.loginLoading = false;
+      state.user = user;
+    });
+    builder.addCase(login.rejected, (state, { payload: error }) => {
+      state.loginLoading = false;
+      state.loginError = error || null;
+    });
   },
 });
 

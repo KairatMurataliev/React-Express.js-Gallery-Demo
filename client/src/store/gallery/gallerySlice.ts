@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Photo} from '../../types';
 import {RootState} from '../store.ts';
+import {getGallery} from "./galleryThunk.ts";
 // import {submitPhoto, getGallery, getAuthorGallery, removePhoto} from "./galleryThunk";
 
 interface GalleryState {
@@ -36,16 +37,16 @@ export const gallerySlice = createSlice({
     // });
 
     // Get Gallery
-    // builder.addCase(getGallery.pending, (state) => {
-    //   state.fetchLoading = true;
-    // });
-    // builder.addCase(getGallery.fulfilled, (state, {payload: list}) => {
-    //   state.fetchLoading = false;
-    //   state.list = list;
-    // });
-    // builder.addCase(getGallery.rejected, (state) => {
-    //   state.fetchLoading = false;
-    // });
+    builder.addCase(getGallery.pending, (state) => {
+      state.fetchLoading = true;
+    });
+    builder.addCase(getGallery.fulfilled, (state, {payload: list}) => {
+      state.fetchLoading = false;
+      state.list = list;
+    });
+    builder.addCase(getGallery.rejected, (state) => {
+      state.fetchLoading = false;
+    });
 
     // Author
     // builder.addCase(getAuthorGallery.pending, (state) => {

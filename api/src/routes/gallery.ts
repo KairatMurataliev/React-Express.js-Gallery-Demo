@@ -18,6 +18,7 @@ router.get('/', async (req, res, next) => {
   try {
     const allGallery = await prisma.photo.findMany();
     console.log(allGallery);
+    res.send(allGallery);
   } catch (err) {
     console.log(err);
   }

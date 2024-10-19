@@ -11,7 +11,7 @@ export interface RegisterMutation {
 }
 
 export interface User {
-  _id: string;
+  id: string;
   email: string;
   username: string;
   avatar: string;
@@ -50,7 +50,7 @@ export interface Photo {
   title: string;
   image: null | string;
   author: {
-    _id: string;
+    id: string;
     username: string;
   }
 }
