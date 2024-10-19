@@ -10,7 +10,7 @@ export const useGallery = (id?: string) => {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const photosList = useAppSelector(selectGalleryList);
-  const loading = useAppSelector(fetchLoading);
+  const galleryLoading = useAppSelector(fetchLoading);
   const removeLoading = useAppSelector(selectRemoveLoading);
   const user = useAppSelector(selectUser);
 
@@ -38,7 +38,7 @@ export const useGallery = (id?: string) => {
     open,
     selectedPhoto,
     photosList,
-    loading,
+    galleryLoading,
     removeLoading,
     user,
     setSelectedPhoto,

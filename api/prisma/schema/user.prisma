@@ -6,7 +6,6 @@ model User {
   password      String
   refreshTokens RefreshToken[]
   avatar        String?        @db.VarChar(255)
-  telegramId    String?        @db.VarChar(255)
   deleted       Boolean        @default(false)
   photo         Photo[]
   createdAt     DateTime       @default(now())

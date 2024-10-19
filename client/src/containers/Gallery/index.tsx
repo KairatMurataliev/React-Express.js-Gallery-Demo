@@ -1,20 +1,25 @@
-import {Button, Typography} from "@mui/material";
-import {useParams, useLocation, NavLink} from "react-router-dom";
+import {Button, ButtonGroup} from "@mui/material";
+import {useParams} from "react-router-dom";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import {getAuthorGallery, getGallery, removePhoto} from "../../store/gallery/galleryThunk.ts";
 import {useGallery} from "../../hooks/useGallery.ts";
+import {useCategories} from "../../hooks/useCategories.ts";
 import {PhotoModal} from "./components/PhotoModal.tsx";
 import PhotoItem from "./components/PhotoItem.tsx";
 import Grid from "@mui/material/Grid2";
 
 const Gallery = () => {
   const {id} = useParams() as { id: string };
-  const search = useLocation();
+  const {
+    categoriesList,
+    selectedCategory,
+    onCategorySelect,
+  } = useCategories();
   const {
     open,
     selectedPhoto,
     photosList,
-    loading,
+    galleryLoading,
     removeLoading,
     user,
     dispatch,
@@ -32,29 +37,20 @@ const Gallery = () => {
     }
   };
 
-  const {pathname} = search;
-
-  console.log(open);
-
   return (
-    loading ? <Spinner/> :
+    galleryLoading ? <Spinner/> : (
       <div style={{marginBottom: '30px'}}>
-        {pathname && pathname.includes('my-gallery') && (
-          <Button variant='contained' style={{marginBottom: '20px'}}>
-            <NavLink to='/gallery/add' style={{textDecoration: 'none', color: '#fff'}}>
-              Submit Photo
-            </NavLink>
-          </Button>
-        )}
-        <Typography variant="h4" component="div" style={{marginBottom: '20px'}}>
-          {
-            pathname && pathname.includes('my-gallery') ?
-              'My Gallery:' :
-              pathname && pathname.includes('gallery') ?
-                `${photosList[0]?.author.username}'s  Gallery:` :
-                'Gallery:'
-          }
-        </Typography>
+        <ButtonGroup style={{ marginBottom: 20 }} variant="outlined" aria-label="Basic button group">
+          {categoriesList.map(({name, id}) => (
+            <Button
+              key={id}
+              onClick={() => onCategorySelect(id)}
+              variant={selectedCategory && selectedCategory === id ? 'contained' : 'outlined'}
+            >
+              {name}
+            </Button>
+          ))}
+        </ButtonGroup>
         <Grid container spacing={2}>
           {photosList.map(photo => (
             <PhotoItem
@@ -78,6 +74,7 @@ const Gallery = () => {
           />
         )}
       </div>
+    )
   );
 };
 

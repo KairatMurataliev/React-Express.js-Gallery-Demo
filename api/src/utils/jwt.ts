@@ -1,21 +1,15 @@
 import jwt from 'jsonwebtoken';
-import {IUser} from "../../types";
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
-const SECRET_KEY = process.env.JWT_SECRET || 'YOUR_SECRET_KEY';
+interface JwtPayload {
+  id: string;
+  role: string;
+}
 
-export const generateToken = (user: IUser) => {
-  return jwt.sign(
-    {
-      id: user.id,
-      telegramId: user.telegramId,
-      username: user.username,
-      role: user.role, // Включаем роль в токен
-    },
-    SECRET_KEY,
-    { expiresIn: '1h' }
-  );
+export const generateToken = (id: string, role: string): string => {
+  return jwt.sign({ id, role }, JWT_SECRET, { expiresIn: '20m' });
 };
 
-export const verifyToken = (token: string) => {
-  return jwt.verify(token, SECRET_KEY);
+export const verifyToken = (token: string): JwtPayload => {
+  return jwt.verify(token, JWT_SECRET) as JwtPayload;
 };
