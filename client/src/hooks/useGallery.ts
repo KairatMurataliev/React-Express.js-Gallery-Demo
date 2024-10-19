@@ -5,10 +5,10 @@ import {selectUser} from "../store/users/usersSlice.ts";
 import {getAuthorGallery, getGallery} from "../store/gallery/galleryThunk.ts";
 import {fetchLoading, selectGalleryList, selectRemoveLoading} from "../store/gallery/gallerySlice.ts";
 
-export const useGalleryMainPage = (id?: string) => {
+export const useGallery = (id?: string) => {
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-  const dispatch = useAppDispatch();
   const photosList = useAppSelector(selectGalleryList);
   const loading = useAppSelector(fetchLoading);
   const removeLoading = useAppSelector(selectRemoveLoading);
@@ -22,16 +22,25 @@ export const useGalleryMainPage = (id?: string) => {
     }
   }, [dispatch, id]);
 
+  const handleOpen = (id: string) => {
+    setOpen(true);
+    const selected = photosList.find(item => item._id === id);
+    if (selected) setSelectedPhoto(selected);
+  };
+
+  const handleClose = () => setOpen(prev => !prev)
+
   return {
     open,
-    setOpen,
     selectedPhoto,
-    setSelectedPhoto,
-
     photosList,
     loading,
     removeLoading,
     user,
-    dispatch
+    setSelectedPhoto,
+    setOpen,
+    dispatch,
+    handleOpen,
+    handleClose
   }
 }

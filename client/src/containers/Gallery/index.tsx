@@ -1,15 +1,15 @@
-import {Button, Card, CardActions, CardMedia, Grid, Modal, Typography} from "@mui/material";
-import {Photo} from "../../types";
+import {Button, Card, CardActions, CardMedia, Grid2, Modal, Typography} from "@mui/material";
 import {useParams, useLocation, NavLink} from "react-router-dom";
-import {baseURL} from "../../axios.ts";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import {getAuthorGallery, getGallery, removePhoto} from "../../store/gallery/galleryThunk.ts";
-import {useGalleryMainPage} from "../../hooks/useGalleryMainPage.ts";
+import {useGallery} from "../../hooks/useGallery.ts";
+import {PhotoModal} from "./PhotoModal.tsx";
+import PhotoItem from "./PhotoItem.tsx";
 
 const Gallery = () => {
   const {id} = useParams() as { id: string };
   const search = useLocation();
-  const {open, selectedPhoto, photosList, loading, removeLoading, user, setOpen, setSelectedPhoto, dispatch } = useGalleryMainPage(id || undefined);
+  const {open, selectedPhoto, photosList, loading, removeLoading, user, setOpen, setSelectedPhoto, dispatch, handleOpen, handleClose } = useGallery(id || undefined);
 
   const onPhotoRemove = async (photoId: string) => {
     await dispatch(removePhoto(photoId));
@@ -19,15 +19,6 @@ const Gallery = () => {
       await dispatch(getGallery());
     }
   };
-
-  const handleOpen = (id: string) => {
-    setOpen(true);
-    const selected = photosList.find(item => item._id === id);
-    if (selected) {
-      setSelectedPhoto(selected);
-    }
-  };
-  const handleClose = () => setOpen(false);
 
   const {pathname} = search;
   return (
@@ -49,39 +40,25 @@ const Gallery = () => {
                 'Gallery:'
           }
         </Typography>
-        <Grid container spacing={2}>
-          {/*{photosList.map((photo) => {*/}
-          {/*  return (*/}
-          {/*    <PhotoItem*/}
-          {/*      key={photo._id}*/}
-          {/*      title={photo.title}*/}
-          {/*      image={photo.image}*/}
-          {/*      role={user?.role}*/}
-          {/*      removePhoto={() => onPhotoRemove(photo._id)}*/}
-          {/*      handleOpen={() => handleOpen(photo._id)}*/}
-          {/*      author={photo?.author}*/}
-          {/*      userId={user?._id}*/}
-          {/*      removeLoading={removeLoading}*/}
-          {/*    />*/}
-          {/*  );*/}
-          {/*})}*/}
-        </Grid>
+        <Grid2 container spacing={2}>
+          {photosList.map(photo => {
+            return (
+              <PhotoItem
+                key={photo._id}
+                title={photo.title}
+                image={photo.image}
+                role={user?.role}
+                removePhoto={() => onPhotoRemove(photo._id)}
+                handleOpen={() => handleOpen(photo._id)}
+                author={photo?.author}
+                userId={user?._id}
+                removeLoading={removeLoading}
+              />
+            )
+          })}
+        </Grid2>
 
-        {selectedPhoto &&
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-          >
-            <Card sx={{maxWidth: 600, margin: 'auto', marginTop: '10%'}}>
-              <CardMedia sx={{height: 300}} image={`${baseURL}/${selectedPhoto.image}`} title="Selected"/>
-              <CardActions>
-                <Button size="small" onClick={handleClose}>
-                  Close
-                </Button>
-              </CardActions>
-            </Card>
-          </Modal>}
+        {selectedPhoto && <PhotoModal open={open} selectedPhoto={selectedPhoto} handleClose={handleClose} />}
       </div>
   );
 };

@@ -1,6 +1,7 @@
 model Photo {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
+  image     String   @db.VarChar(255)
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?     @unique
   deleted   Boolean  @default(false)
