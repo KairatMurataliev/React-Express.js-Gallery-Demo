@@ -8,7 +8,13 @@ export const useCategories = () => {
   const dispatch = useAppDispatch();
   const categoriesList = useAppSelector(selectCategoriesList);
 
-  const onCategorySelect = (id: string) => setSelectedCategory(id);
+  const onCategorySelect = (id: string) => {
+    if (selectedCategory === id) {
+      setSelectedCategory('');
+    } else {
+      setSelectedCategory(id);
+    }
+  };
 
   useEffect(() => {
     dispatch(getCategoriesList());

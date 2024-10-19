@@ -1,4 +1,3 @@
-import {Button, ButtonGroup} from "@mui/material";
 import {useParams} from "react-router-dom";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import {getAuthorGallery, getGallery, removePhoto} from "../../store/gallery/galleryThunk.ts";
@@ -7,6 +6,7 @@ import {useCategories} from "../../hooks/useCategories.ts";
 import {PhotoModal} from "./components/PhotoModal.tsx";
 import PhotoItem from "./components/PhotoItem.tsx";
 import Grid from "@mui/material/Grid2";
+import {CategoriesFilters} from "./components/CategoriesFilters.tsx";
 
 const Gallery = () => {
   const {id} = useParams() as { id: string };
@@ -40,17 +40,13 @@ const Gallery = () => {
   return (
     galleryLoading ? <Spinner/> : (
       <div style={{marginBottom: '30px'}}>
-        <ButtonGroup style={{ marginBottom: 20 }} variant="outlined" aria-label="Basic button group">
-          {categoriesList.map(({name, id}) => (
-            <Button
-              key={id}
-              onClick={() => onCategorySelect(id)}
-              variant={selectedCategory && selectedCategory === id ? 'contained' : 'outlined'}
-            >
-              {name}
-            </Button>
-          ))}
-        </ButtonGroup>
+
+        <CategoriesFilters
+          categoriesList={categoriesList}
+          selectedCategory={selectedCategory}
+          onCategorySelect={onCategorySelect}
+        />
+
         <Grid container spacing={2}>
           {photosList.map(photo => (
             <PhotoItem

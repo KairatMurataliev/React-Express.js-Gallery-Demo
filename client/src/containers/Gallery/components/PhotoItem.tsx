@@ -33,34 +33,6 @@ const PhotoItem: React.FC<Props> = ({
         cardStyle={{maxWidth: 400}}
         cardMediaStyle={{height: 200}}
       />
-      {/*<Card sx={{maxWidth: 400}}>*/}
-      {/*  <CardActionArea onClick={handleOpen}>*/}
-      {/*    <CardMedia sx={{height: 200}} image={`${baseURL}/${image}`} title="Photo"/>*/}
-      {/*  </CardActionArea>*/}
-      {/*  <CardContent>*/}
-      {/*    <Typography gutterBottom variant="h5" component="div">*/}
-      {/*      {title}*/}
-      {/*    </Typography>*/}
-
-      {/*    <Typography variant="body2" color="text.secondary">*/}
-      {/*      Author:*/}
-      {/*      <NavLink to={`/gallery/${author?.id}`}>*/}
-      {/*        {author?.username}*/}
-      {/*      </NavLink>*/}
-      {/*    </Typography>*/}
-      {/*  </CardContent>*/}
-      {/*  <CardActions>*/}
-      {/*    {role === 'admin' ? (*/}
-      {/*      <LoadingButton variant="contained" color="error" loading={removeLoading} onClick={removePhoto}>*/}
-      {/*        Delete*/}
-      {/*      </LoadingButton>*/}
-      {/*    ) : author && author.id === userId ? (*/}
-      {/*      <LoadingButton variant="contained" color="error" loading={removeLoading} onClick={removePhoto}>*/}
-      {/*        Delete*/}
-      {/*      </LoadingButton>*/}
-      {/*    ) : null}*/}
-      {/*  </CardActions>*/}
-      {/*</Card>*/}
     </Grid>
   );
 };

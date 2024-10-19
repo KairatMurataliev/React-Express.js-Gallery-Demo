@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
 interface JwtPayload {
+  exp: number;
   id: string;
   role: string;
 }

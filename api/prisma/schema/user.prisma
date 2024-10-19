@@ -1,15 +1,14 @@
 model User {
-  id            String         @id @default(uuid())
-  username      String         @db.VarChar(255)
-  email         String         @unique @db.VarChar(255)
-  role          UserRole       @default(USER)
-  password      String
-  refreshTokens RefreshToken[]
-  avatar        String?        @db.VarChar(255)
-  deleted       Boolean        @default(false)
-  photo         Photo[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  id        String   @id @default(uuid())
+  username  String   @db.VarChar(255)
+  email     String   @unique @db.VarChar(255)
+  role      UserRole @default(USER)
+  password  String
+  avatar    String?  @db.VarChar(255)
+  deleted   Boolean  @default(false)
+  photo     Photo[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum UserRole {

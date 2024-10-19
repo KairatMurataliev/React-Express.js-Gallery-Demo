@@ -1,45 +1,39 @@
 import React, {useState} from 'react';
-import {Button, Menu, MenuItem} from '@mui/material';
-import {NavLink} from 'react-router-dom';
+import {Button} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import {User} from "../../../types";
-// import {useAppDispatch} from "../../../store/store-hooks.ts";
-// import {baseURL} from "../../../axios.ts";
 import {UserAvatar} from "../UserAvatar/UserAvatar.tsx";
 import {DrawerComponent} from "../DrawerComponent/DrawerComponent.tsx";
+import {useAppDispatch} from "../../../store/store-hooks.ts";
+import {logout} from "../../../store/users/usersThunk.ts";
 
 interface Props {
   user: User;
 }
 
 const UserMenu: React.FC<Props> = ({ user }) => {
-  // const dispatch = useAppDispatch();
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const dispatch = useAppDispatch();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleLogout = () => {
-    // dispatch(logout());
-  };
 
   const toggleDrawer = () => setOpenDrawer(prev => !prev);
 
   return (
     <>
-      <Button onClick={handleClick} color="inherit">
+      <Button
+        onClick={toggleDrawer}
+        endIcon={<MenuIcon />}
+        color="inherit"
+      >
         {user.avatar && <UserAvatar style={{marginRight: '15px'}} user={user}/>}
-        Hello, {user.username}
+        {user.username}
       </Button>
 
-      <Button onClick={toggleDrawer}>Open drawer</Button>
-
       <DrawerComponent
-        toggleDrawer={toggleDrawer}
+        user={user}
+        anchor='right'
         openDrawer={openDrawer}
+        toggleDrawer={toggleDrawer}
+        handleLogout={() => dispatch(logout())}
       />
       {/*<Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>*/}
       {/*  <NavLink to={`/my-gallery/${user.id}`} style={{textDecoration: 'none', color: '#000'}}>*/}

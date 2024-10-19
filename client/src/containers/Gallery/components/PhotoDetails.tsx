@@ -1,5 +1,7 @@
 import React from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
+  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -15,7 +17,6 @@ import {Close, Favorite, Share} from "@mui/icons-material";
 import {red} from "@mui/material/colors";
 import {baseURL} from "../../../axios.ts";
 import {Photo} from '../../../types';
-import {LoadingButton} from "@mui/lab";
 import {NavLink} from "react-router-dom";
 
 interface Props {
@@ -46,7 +47,6 @@ export const PhotoDetails: React.FC<Props> = ({
                                                 handleRemovePhoto
                                               }) => {
   return (
-    // <Card sx={{maxWidth: 800, margin: 'auto', marginTop: '5%'}}>
     <Card sx={cardStyle}>
       {isModal && (
         <CardHeader
@@ -92,23 +92,22 @@ export const PhotoDetails: React.FC<Props> = ({
           </>
         ) : (
           role === 'admin' ? (
-            <LoadingButton variant="contained" color="error" loading={removeLoading} onClick={handleRemovePhoto}>
+            <Button color="error" variant="outlined" startIcon={<DeleteIcon />}>
               Delete
-            </LoadingButton>
+            </Button>
           ) : photoData.author && photoData.author.id === userId ? (
-            <LoadingButton variant="contained" color="error" loading={removeLoading} onClick={handleRemovePhoto}>
+            <Button color="error" variant="outlined" startIcon={<DeleteIcon />}>
               Delete
-            </LoadingButton>
+            </Button>
           ) : null
         )}
 
         {!isModal && (
-          <Typography variant="body2" color="text.secondary">
-            Author:
-            <NavLink to={`/gallery/${photoData.author?.id}`}>
-              {photoData.author?.username}
-            </NavLink>
-          </Typography>
+          photoData.author && photoData.author.id !== userId && (
+            <Button component={NavLink} to={`/gallery/${photoData.author?.id}`} variant='outlined'>
+              See More
+            </Button>
+          )
         )}
       </CardActions>
     </Card>
