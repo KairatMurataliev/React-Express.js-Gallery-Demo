@@ -1,52 +1,18 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { RegisterMutation } from '../../types';
+import { Link as RouterLink } from 'react-router-dom';
 import { Avatar, Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { selectRegisterError } from '../../store/users/usersSlice.ts';
-import {useAppDispatch, useAppSelector} from "../../store/store-hooks.ts";
-import {register} from "../../store/users/usersThunk.ts";
 import FileInput from "../../components/UI/FileInput/FileInput.tsx";
+import {useRegister} from "../../hooks/useRegister.tsx";
 
 const Register = () => {
-  const dispatch = useAppDispatch();
-  const error = useAppSelector(selectRegisterError);
-  const navigate = useNavigate();
-
-  const [state, setState] = useState<RegisterMutation>({
-    email: '',
-    username: '',
-    avatar: null,
-    password: '',
-  });
-
-  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: files && files[0] ? files[0] : null,
-    }));
-  };
-
-  const submitFormHandler = async (event: React.FormEvent) => {
-    event.preventDefault();
-    await dispatch(register(state)).unwrap();
-    navigate('/');
-  };
-
-  const getFieldError = (fieldName: string) => {
-    try {
-      return error?.errors[fieldName].message;
-    } catch {
-      return undefined;
-    }
-  };
+  const {
+    state,
+    inputChangeHandler,
+    fileInputChangeHandler,
+    submitFormHandler,
+    getFieldError,
+  } = useRegister();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -80,9 +46,9 @@ const Register = () => {
             </Grid>
             <Grid size={{ xs: 12, md: 12, lg: 12 }}>
               <TextField
-                name="displayName"
+                name="username"
                 label="Display Name"
-                type="displayName"
+                type="username"
                 value={state.username}
                 onChange={inputChangeHandler}
                 error={Boolean(getFieldError('displayName'))}

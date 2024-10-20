@@ -35,15 +35,6 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         toggleDrawer={toggleDrawer}
         handleLogout={() => dispatch(logout())}
       />
-      {/*<Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>*/}
-      {/*  <NavLink to={`/my-gallery/${user.id}`} style={{textDecoration: 'none', color: '#000'}}>*/}
-      {/*    <MenuItem>My Gallery</MenuItem>*/}
-      {/*  </NavLink>*/}
-      {/*  <NavLink to="/gallery/add" style={{textDecoration: 'none', color: '#000'}}>*/}
-      {/*    <MenuItem>Submit Photo</MenuItem>*/}
-      {/*  </NavLink>*/}
-      {/*  <MenuItem onClick={handleLogout}>Logout</MenuItem>*/}
-      {/*</Menu>*/}
     </>
   );
 };

@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import ImageIcon from '@mui/icons-material/Image';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import {NavLink} from "react-router-dom";
 
 type Anchor = "right";
 
@@ -51,7 +52,7 @@ export const DrawerComponent: React.FC<PropsWithChildren<Props>> = ({
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton component={NavLink} to={`/my-gallery/${user.id}`}>
               <ListItemIcon>
                 <ImageIcon/>
               </ListItemIcon>

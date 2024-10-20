@@ -55,7 +55,7 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
   try {
-    const token = req.headers.authorization?.split(' ')[1];
+    const token = req.headers.authorization;
 
     if (!token) {
       res.status(401).json({ error: 'No token' });
@@ -69,7 +69,7 @@ export const logout = async (req: Request, res: Response) => {
         },
       });
 
-      res.status(200).json({ message: 'Login successful' });
+      res.status(200).json({ message: 'Logout successful' });
     }
 
   } catch (error) {
