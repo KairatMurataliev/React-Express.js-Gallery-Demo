@@ -47,7 +47,7 @@ export const logout = createAsyncThunk<_, undefined, { state: RootState }>(
   async (_, {getState}) => {
   const user = getState().users.user;
 
-  await axiosApi.post('/auth/logout', {
+  await axiosApi.delete('/auth/logout', {
     headers: {authorization: user?.token},
   });
 });

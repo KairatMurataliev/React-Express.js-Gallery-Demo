@@ -1,34 +1,11 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { LoginMutation } from '../../types';
+import { Link as RouterLink } from 'react-router-dom';
 import { Alert, Avatar, Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { selectLoginError } from '../../store/users/usersSlice.ts';
-import {useAppDispatch, useAppSelector} from "../../store/store-hooks.ts";
-import {login} from "../../store/users/usersThunk.ts";
 import Grid from "@mui/material/Grid2";
+import {useLogin} from "../../hooks/useLogin.ts";
 
 const Login = () => {
-  const dispatch = useAppDispatch();
-  const error = useAppSelector(selectLoginError);
-  const navigate = useNavigate();
-
-  const [state, setState] = useState<LoginMutation>({
-    email: '',
-    password: '',
-  });
-
-  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const submitFormHandler = async (event: React.FormEvent) => {
-    event.preventDefault();
-    await dispatch(login(state)).unwrap();
-    navigate('/');
-  };
-
+  const {state, error, inputChangeHandler, submitFormHandler} = useLogin();
   return (
     <Container component="main" maxWidth="xs">
       <Box

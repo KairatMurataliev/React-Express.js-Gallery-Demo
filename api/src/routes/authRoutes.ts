@@ -5,8 +5,8 @@ import {imagesUpload} from "../utils/multer";
 
 const router = Router();
 
-router.post('/register', imagesUpload.single('avatar'), register);
-router.post('/login', login);
-router.post('/logout', authMiddleware, logout);
+// router.post('/register', imagesUpload.single('avatar'), register);
+// router.post('/login', login);
+// router.delete('/logout', logout);
 
 export default router;

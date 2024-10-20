@@ -1,9 +1,7 @@
-export type IUser = {
+export interface JwtPayload {
   id: string;
-  username: string;
   email: string;
-  role: string;
-  avatar?: string;
-  createdAt: string
-  updatedAt: string;
+  role: 'USER' | 'ADMIN';
+  iat: number;
+  exp: number;
 }

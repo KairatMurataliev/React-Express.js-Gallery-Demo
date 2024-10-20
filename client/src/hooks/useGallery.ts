@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../store/store-hooks.ts";
 import {selectUser} from "../store/users/usersSlice.ts";
 import {getAuthorGallery, getGallery} from "../store/gallery/galleryThunk.ts";
 import {fetchLoading, selectGalleryList, selectRemoveLoading} from "../store/gallery/gallerySlice.ts";
+import {usePhotoSubmit} from "./usePhotoSubmit.ts";
 
 export const useGallery = (id?: string) => {
   const dispatch = useAppDispatch();
@@ -14,13 +15,15 @@ export const useGallery = (id?: string) => {
   const removeLoading = useAppSelector(selectRemoveLoading);
   const user = useAppSelector(selectUser);
 
+  const {submitOpen} = usePhotoSubmit();
+
   useEffect(() => {
     if (id) {
       dispatch(getAuthorGallery(id));
     } else {
       dispatch(getGallery());
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, submitOpen]);
 
   const handleOpen = (id: string) => {
     setOpen(true);

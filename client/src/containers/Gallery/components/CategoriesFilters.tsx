@@ -10,7 +10,7 @@ interface Props {
 
 export const CategoriesFilters: React.FC<Props> = ({categoriesList, selectedCategory, onCategorySelect}) => {
   return (
-    <ButtonGroup style={{ marginBottom: 20 }} variant="outlined" aria-label="Basic button group">
+    <ButtonGroup variant="outlined" aria-label="Basic button group">
       {categoriesList.map(({name, id}) => (
         <Button
           key={id}

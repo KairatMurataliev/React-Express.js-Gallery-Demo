@@ -3,7 +3,7 @@ import { Avatar, Box, Button, Container, Link, TextField, Typography } from '@mu
 import Grid from '@mui/material/Grid2';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FileInput from "../../components/UI/FileInput/FileInput.tsx";
-import {useRegister} from "../../hooks/useRegister.tsx";
+import {useRegister} from "../../hooks/useRegister.ts";
 
 const Register = () => {
   const {

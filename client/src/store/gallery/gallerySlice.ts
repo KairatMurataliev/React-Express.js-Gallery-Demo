@@ -9,6 +9,7 @@ interface GalleryState {
   fetchLoading: boolean;
   submitLoading: boolean;
   removeLoading: boolean;
+  openSubmitPhoto: boolean;
 }
 
 const initialState: GalleryState = {
@@ -17,12 +18,17 @@ const initialState: GalleryState = {
   fetchLoading: false,
   submitLoading: false,
   removeLoading: false,
+  openSubmitPhoto: false,
 };
 
 export const gallerySlice = createSlice({
   name: 'gallery',
   initialState,
-  reducers: {},
+  reducers: {
+    submitModalOpen: (state) => {
+      state.openSubmitPhoto = !state.openSubmitPhoto
+    }
+  },
   extraReducers: (builder) => {
     // Submit photo
     builder.addCase(submitPhoto.pending, (state) => {
@@ -78,3 +84,5 @@ export const selectGalleryList = (state: RootState) => state.gallery.list;
 export const fetchLoading = (state: RootState) => state.gallery.fetchLoading;
 export const submitLoading = (state: RootState) => state.gallery.submitLoading;
 export const selectRemoveLoading = (state: RootState) => state.gallery.removeLoading;
+export const selectOpenSubmitPhoto = (state: RootState) => state.gallery.openSubmitPhoto;
+export const { submitModalOpen } = gallerySlice.actions;

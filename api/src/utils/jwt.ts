@@ -1,16 +1,14 @@
 import jwt from 'jsonwebtoken';
-const JWT_SECRET = process.env.JWT_SECRET as string;
+import {User} from "@prisma/client"; // Импортируем наш тип
 
-interface JwtPayload {
-  exp: number;
-  id: string;
-  role: string;
-}
-
-export const generateToken = (id: string, role: string): string => {
-  return jwt.sign({ id, role }, JWT_SECRET, { expiresIn: '20m' });
+export const generateToken = (user: User) => {
+  return jwt.sign(
+    {...user},
+    process.env.JWT_SECRET as string,
+    { expiresIn: '20m' }
+  );
 };
 
-export const verifyToken = (token: string): JwtPayload => {
-  return jwt.verify(token, JWT_SECRET) as JwtPayload;
+export const verifyToken = (token: string) => {
+  return jwt.verify(token, process.env.JWT_SECRET as string);
 };

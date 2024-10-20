@@ -30,9 +30,10 @@ export const getAuthorGallery = createAsyncThunk<Photo[], string>(
     }
   });
 
-export const submitPhoto = createAsyncThunk<void, PhotoMutation>(
+export const submitPhoto = createAsyncThunk<void, PhotoMutation, { state: RootState }>(
   'gallery/submit',
-  async (photo) => {
+  async (photo, {getState}) => {
+    const user = getState().users.user;
     const formData = new FormData();
 
     const keys = Object.keys(photo) as (keyof PhotoMutation)[];
@@ -45,7 +46,9 @@ export const submitPhoto = createAsyncThunk<void, PhotoMutation>(
         formData.append(key, value);
       }
     });
-    await axiosApi.post('/gallery', formData);
+    if (user) {
+      await axiosApi.post('/gallery/submit', formData, { headers: {Authorization: user.token} });
+    }
   });
 
 export const removePhoto = createAsyncThunk<void, string, { state: RootState }>(

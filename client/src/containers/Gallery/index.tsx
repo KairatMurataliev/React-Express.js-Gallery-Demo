@@ -7,6 +7,10 @@ import {PhotoModal} from "./components/PhotoModal.tsx";
 import PhotoItem from "./components/PhotoItem.tsx";
 import Grid from "@mui/material/Grid2";
 import {CategoriesFilters} from "./components/CategoriesFilters.tsx";
+import {Button} from "@mui/material";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import SubmitNewPhoto from "./components/SubmitNewPhoto.tsx";
+import {usePhotoSubmit} from "../../hooks/usePhotoSubmit.ts";
 
 const Gallery = () => {
   const {id} = useParams() as { id: string };
@@ -27,6 +31,7 @@ const Gallery = () => {
     handleClose,
     handleLike
   } = useGallery(id || undefined);
+  const { submitOpen, handleOpenModal } = usePhotoSubmit();
 
   const onPhotoRemove = async (photoId: string) => {
     await dispatch(removePhoto(photoId));
@@ -41,11 +46,23 @@ const Gallery = () => {
     galleryLoading ? <Spinner/> : (
       <div style={{marginBottom: '30px'}}>
 
-        <CategoriesFilters
-          categoriesList={categoriesList}
-          selectedCategory={selectedCategory}
-          onCategorySelect={onCategorySelect}
-        />
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20}}>
+          <CategoriesFilters
+            categoriesList={categoriesList}
+            selectedCategory={selectedCategory}
+            onCategorySelect={onCategorySelect}
+          />
+
+          {user && (
+            <Button
+              onClick={handleOpenModal}
+              variant="contained"
+              startIcon={<AddCircleIcon/>}
+            >
+              Submit New Photo
+            </Button>
+          )}
+        </div>
 
         <Grid container spacing={2}>
           {photosList.map(photo => (
@@ -69,6 +86,8 @@ const Gallery = () => {
             handleLike={handleLike}
           />
         )}
+
+        <SubmitNewPhoto open={submitOpen} handleOpenModal={handleOpenModal}/>
       </div>
     )
   );

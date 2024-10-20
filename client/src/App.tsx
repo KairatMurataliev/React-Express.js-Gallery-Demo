@@ -5,8 +5,8 @@ import Gallery from "./containers/Gallery";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import {useAppSelector} from "./store/store-hooks.ts";
 import {selectUser} from "./store/users/usersSlice.ts";
-import Register from "./containers/Users/Register.tsx";
-import Login from "./containers/Users/Login.tsx";
+import Register from "./containers/Auth/Register.tsx";
+import Login from "./containers/Auth/Login.tsx";
 
 function App() {
   const user = useAppSelector(selectUser);

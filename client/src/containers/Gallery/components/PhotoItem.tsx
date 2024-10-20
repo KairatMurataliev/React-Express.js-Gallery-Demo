@@ -21,7 +21,7 @@ const PhotoItem: React.FC<Props> = ({
                                       removeLoading
                                     }) => {
   return (
-    <Grid size={{xs: 6, md: 4, lg: 4}}>
+    <Grid size={{xs: 6, md: 4, lg: 3}}>
       <PhotoDetails
         isModal={false}
         photoData={item}

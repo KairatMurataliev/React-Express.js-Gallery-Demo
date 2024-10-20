@@ -7,7 +7,6 @@ import {PropsWithChildren} from "react";
 import {User} from "../../../types";
 import IconButton from "@mui/material/IconButton";
 import ImageIcon from '@mui/icons-material/Image';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {NavLink} from "react-router-dom";
 
@@ -42,15 +41,6 @@ export const DrawerComponent: React.FC<PropsWithChildren<Props>> = ({
         <Divider/>
 
         <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <AddCircleIcon/>
-              </ListItemIcon>
-              <ListItemText primary={'Submit Photo'}/>
-            </ListItemButton>
-          </ListItem>
-
           <ListItem disablePadding>
             <ListItemButton component={NavLink} to={`/my-gallery/${user.id}`}>
               <ListItemIcon>

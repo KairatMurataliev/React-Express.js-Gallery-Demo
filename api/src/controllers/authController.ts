@@ -20,7 +20,7 @@ export const register = async (req: Request, res: Response) => {
         data: { email, password: hashedPassword, username },
       });
 
-      const token = generateToken(newUser.id, newUser.role);
+      const token = generateToken(newUser);
 
       res.status(201).json({ user: {...newUser, token} });
     }
@@ -43,7 +43,7 @@ export const login = async (req: Request, res: Response) => {
       if (!isPasswordValid) {
         res.status(400).json({ error: 'Incorrect password or email' });
       } else {
-        const token = generateToken(user.id, user.role);
+        const token = generateToken(user);
 
         res.status(200).json({ user: {...user, token} });
       }

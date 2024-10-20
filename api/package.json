@@ -10,6 +10,7 @@
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
     "prisma:seed": "prisma db seed",
+    "clear-tokens": "ts-node src/utils/clearExpiredTokens.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "prisma": {

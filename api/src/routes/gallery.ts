@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import {prisma} from "../../prisma/prisma-client";
-import {getGallery} from "../controllers/galleryController"; // Импортируем middleware для проверки ролей
+import {getGallery, submitNewPhoto} from "../controllers/galleryController";
+import {imagesUpload} from "../utils/multer";
+import {authMiddleware} from "../middleware/authMiddleware"; // Импортируем middleware для проверки ролей
 
 const router = Router();
 
 router.get('/', getGallery);
-
+// router.post('/submit', authMiddleware, imagesUpload.single('image'), submitNewPhoto);
 
 export default router;

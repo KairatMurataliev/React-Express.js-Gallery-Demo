@@ -40,11 +40,11 @@ export const PhotoDetails: React.FC<Props> = ({
                                                 isModal,
                                                 cardStyle,
                                                 cardMediaStyle,
-                                                removeLoading,
+                                                // removeLoading,
                                                 handleClose,
                                                 handleOpen,
                                                 handleLike,
-                                                handleRemovePhoto
+                                                // handleRemovePhoto
                                               }) => {
   return (
     <Card sx={cardStyle}>

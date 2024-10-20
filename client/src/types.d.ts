@@ -21,8 +21,8 @@ export type ValidationError = {
 
 export type PhotoMutation = {
   title: string;
+  description: string;
   image: null | string;
-  description?: string
 }
 
 export type LoginMutation = {
