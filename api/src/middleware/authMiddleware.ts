@@ -1,10 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
-import {User} from "@prisma/client";
 import {prisma} from "../../prisma/prisma-client";
-
-export interface RequestWithUser extends Request {
-  user: User;
-}
+import {RequestWithUser} from "../../types";
 
 export const authMiddleware = async (expressReq: Request, res: Response, next: NextFunction) => {
   const req = expressReq as RequestWithUser;

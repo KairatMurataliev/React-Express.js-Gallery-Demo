@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import {prisma} from "../../prisma/prisma-client";
 import {Photo, User} from "@prisma/client";
-import {RequestWithUser} from "../middleware/authMiddleware";
+import {RequestWithUser} from "../../types";
 
 export const getGallery = async (req: Request, res: Response) => {
   try {
@@ -10,7 +10,7 @@ export const getGallery = async (req: Request, res: Response) => {
       const author: string = req.query.author.toString();
       gallery = await prisma.photo.findMany(
         {
-          where: { authorId: { in: [author] }, deleted: false },
+          where: { authorId: { in: [author] }, deleted: false, published: true },
           include: { author: true }
         }
       );
@@ -59,6 +59,21 @@ export const removeMyPhoto = async (expressReq: Request, res: Response) => {
       data: { deleted: true }
     })
     res.status(200).send({ message: 'Successfully removed' })
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const publishPhoto = async (expressReq: Request, res: Response) => {
+  try {
+    const req = expressReq as RequestWithUser;
+    const { id } = req.params;
+
+    await prisma.photo.update({
+      where: { id },
+      data: { published: true }
+    })
+    res.status(200).send({ message: 'Successfully published' })
   } catch (err) {
     console.log(err);
   }

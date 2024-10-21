@@ -3,14 +3,11 @@ import {Photo, PhotoMutation} from '../../types';
 import axiosApi from "../../axios.ts";
 import {RootState} from "../store.ts";
 
-export const getGallery = createAsyncThunk<Photo[], undefined, { state: RootState }>(
+export const getGallery = createAsyncThunk<Photo[]>(
   'gallery/get',
-  async (_, {getState}) => {
-    const user = getState().users.user;
+  async () => {
     try {
-      const response = await axiosApi.get<Photo[]>('/gallery', {
-        headers: {Authorization: user?.token},
-      });
+      const response = await axiosApi.get<Photo[]>('/gallery');
       return response.data;
     } catch (err) {
       console.log(err);

@@ -55,6 +55,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user1.id,
         categoryId: natureCategory.id,
+        published: true
       },
       {
         title: 'Photo 2',
@@ -62,6 +63,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user1.id,
         categoryId: natureCategory.id,
+        published: true
       },
       {
         title: 'Photo 3',
@@ -69,6 +71,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user1.id,
         categoryId: natureCategory.id,
+        published: true
       },
       {
         title: 'Photo 4',
@@ -76,6 +79,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user1.id,
         categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 5',
@@ -83,20 +87,23 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user1.id,
         categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 6',
         image: 'seed/anime1.jpeg',
         description: 'Here is some photo description',
         authorId: user1.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
       {
         title: 'Photo 7',
         image: 'seed/anime2.jpg',
         description: 'Here is some photo description',
         authorId: user1.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
 
       {
@@ -104,49 +111,56 @@ async function up() {
         image: 'seed/photo4.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
       {
         title: 'Photo 2',
         image: 'seed/photo5.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
       {
         title: 'Photo 3',
         image: 'seed/photo6.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
       {
         title: 'Photo 4',
         image: 'seed/military3.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: militaryCategory.id
+        categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 5',
         image: 'seed/military4.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: militaryCategory.id
+        categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 6',
         image: 'seed/anime3.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
       {
         title: 'Photo 7',
         image: 'seed/anime4.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
 
       {
@@ -154,49 +168,56 @@ async function up() {
         image: 'seed/photo7.jpeg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: militaryCategory.id
+        categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 2',
         image: 'seed/photo8.jpg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: militaryCategory.id
+        categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 3',
         image: 'seed/photo9.jpg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: militaryCategory.id
+        categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 4',
         image: 'seed/military5.jpg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: militaryCategory.id
+        categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 4',
         image: 'seed/military6.jpg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: militaryCategory.id
+        categoryId: militaryCategory.id,
+        published: true
       },
       {
         title: 'Photo 5',
         image: 'seed/anime6.jpg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
       {
         title: 'Photo 5',
         image: 'seed/anime6.jpg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: animeCategory.id
+        categoryId: animeCategory.id,
+        published: true
       },
     ]
   })

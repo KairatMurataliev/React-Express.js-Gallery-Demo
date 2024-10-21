@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import {UserAvatar} from "../../../components/UI/UserAvatar/UserAvatar.tsx";
 import IconButton from "@mui/material/IconButton";
+import PreviewIcon from '@mui/icons-material/Preview';
 import {Close, Favorite, Share} from "@mui/icons-material";
 import {red} from "@mui/material/colors";
 import {baseURL} from "../../../axios.ts";
@@ -104,7 +105,7 @@ export const PhotoDetails: React.FC<Props> = ({
 
         {!isModal && (
           photoData.author && photoData.author.id !== userId && (
-            <Button component={NavLink} to={`/gallery/${photoData.author?.id}`} variant='outlined'>
+            <Button component={NavLink} to={`/gallery/${photoData.author?.id}`} variant='outlined' startIcon={<PreviewIcon/>}>
               See More
             </Button>
           )

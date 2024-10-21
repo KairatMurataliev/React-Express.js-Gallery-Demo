@@ -1,12 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import {User} from "@prisma/client";
-
-export interface RequestWithUser extends Request {
-  user: User;
-}
+import {RequestWithUser} from "../../types";
 
 export const permit = (role: string) => {
-  return (req: RequestWithUser, res: Response, next: NextFunction) => {
+  return (expressReq: Request, res: Response, next: NextFunction) => {
+    const req = expressReq as RequestWithUser;
     if (req.user?.role !== role) {
       res.status(403).json({ error: 'No access' });
     } else {
