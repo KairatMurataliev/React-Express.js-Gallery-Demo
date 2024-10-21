@@ -1,5 +1,6 @@
 import { prisma } from './prisma-client';
 import { hashSync } from 'bcrypt';
+import {generateToken} from "../src/utils/generateToken";
 
 async function up() {
   const user1 = await prisma.user.create({
@@ -7,7 +8,8 @@ async function up() {
       username: 'Simple User',
       email: 'user1@test.com',
       password: hashSync('123', 10),
-      role: 'USER'
+      role: 'USER',
+      token: generateToken(),
     }
   });
   const user2 = await prisma.user.create({
@@ -15,7 +17,8 @@ async function up() {
       username: 'Simple User',
       email: 'user2@test.com',
       password: hashSync('123', 10),
-      role: 'USER'
+      role: 'USER',
+      token: generateToken(),
     }
   });
   const admin = await prisma.user.create({
@@ -24,6 +27,7 @@ async function up() {
       email: 'admin@test.com',
       password: hashSync('123', 10),
       role: 'ADMIN',
+      token: generateToken(),
     }
   });
 

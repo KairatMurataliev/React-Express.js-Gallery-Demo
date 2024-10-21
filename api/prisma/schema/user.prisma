@@ -4,6 +4,7 @@ model User {
   email     String   @unique @db.VarChar(255)
   role      UserRole @default(USER)
   password  String
+  token     String   @unique @db.VarChar(255)
   avatar    String?  @db.VarChar(255)
   deleted   Boolean  @default(false)
   photo     Photo[]

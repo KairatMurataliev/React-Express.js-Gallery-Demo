@@ -1,16 +1,12 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {RootState} from "../store.ts";
 import axiosApi from "../../axios.ts";
 import {Category} from "../../types";
 
-export const getCategoriesList = createAsyncThunk<Category[], undefined, { state: RootState }>(
+export const getCategoriesList = createAsyncThunk<Category[], undefined>(
   '/categories',
-  async (_, { getState }) => {
-    const user = getState().users.user;
+  async (_) => {
     try {
-      const response = await axiosApi.get<Category[]>('/categories', {
-        headers: {Authorization: user?.token},
-      });
+      const response = await axiosApi.get<Category[]>('/categories');
       return response.data;
     } catch (err) {
       console.log(err);

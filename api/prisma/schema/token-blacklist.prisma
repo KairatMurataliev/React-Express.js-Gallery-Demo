@@ -1,5 +1,0 @@
-model TokenBlacklist {
-  id        String   @id @default(uuid())
-  token     String   @unique
-  expiresAt DateTime
-}

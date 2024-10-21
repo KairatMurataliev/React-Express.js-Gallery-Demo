@@ -31,7 +31,7 @@ const Gallery = () => {
     handleClose,
     handleLike
   } = useGallery(id || undefined);
-  const { submitOpen, handleOpenModal } = usePhotoSubmit();
+  const { submitOpen, handleToggleModal } = usePhotoSubmit();
 
   const onPhotoRemove = async (photoId: string) => {
     await dispatch(removePhoto(photoId));
@@ -55,7 +55,7 @@ const Gallery = () => {
 
           {user && (
             <Button
-              onClick={handleOpenModal}
+              onClick={handleToggleModal}
               variant="contained"
               startIcon={<AddCircleIcon/>}
             >
@@ -87,7 +87,7 @@ const Gallery = () => {
           />
         )}
 
-        <SubmitNewPhoto open={submitOpen} handleOpenModal={handleOpenModal}/>
+        <SubmitNewPhoto open={submitOpen} handleToggleModal={handleToggleModal}/>
       </div>
     )
   );

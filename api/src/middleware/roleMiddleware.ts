@@ -8,8 +8,9 @@ export interface RequestWithUser extends Request {
 export const permit = (role: string) => {
   return (req: RequestWithUser, res: Response, next: NextFunction) => {
     if (req.user?.role !== role) {
-      return res.status(403).json({ error: 'No access' });
+      res.status(403).json({ error: 'No access' });
+    } else {
+      next();
     }
-    next();
   };
 };

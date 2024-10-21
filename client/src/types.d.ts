@@ -22,6 +22,7 @@ export type ValidationError = {
 export type PhotoMutation = {
   title: string;
   description: string;
+  category: string;
   image: null | string;
 }
 

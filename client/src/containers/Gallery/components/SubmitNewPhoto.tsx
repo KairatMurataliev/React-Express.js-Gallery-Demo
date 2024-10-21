@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 
 interface Props {
   open: boolean;
-  handleOpenModal: () => void;
+  handleToggleModal: () => void;
 }
 
 const style = {
@@ -19,11 +19,11 @@ const style = {
   p: 4,
 };
 
-const SubmitNewPhoto: React.FC<Props> = ({ open, handleOpenModal }) => {
+const SubmitNewPhoto: React.FC<Props> = ({ open, handleToggleModal }) => {
   return (
     <Modal
       open={open}
-      onClose={handleOpenModal}
+      onClose={handleToggleModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >

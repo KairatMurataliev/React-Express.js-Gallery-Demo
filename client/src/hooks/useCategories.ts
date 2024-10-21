@@ -8,6 +8,10 @@ export const useCategories = () => {
   const dispatch = useAppDispatch();
   const categoriesList = useAppSelector(selectCategoriesList);
 
+  useEffect(() => {
+    dispatch(getCategoriesList());
+  }, [dispatch]);
+
   const onCategorySelect = (id: string) => {
     if (selectedCategory === id) {
       setSelectedCategory('');
@@ -15,10 +19,6 @@ export const useCategories = () => {
       setSelectedCategory(id);
     }
   };
-
-  useEffect(() => {
-    dispatch(getCategoriesList());
-  }, [dispatch]);
 
   return {
     categoriesList,
