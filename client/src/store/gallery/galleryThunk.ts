@@ -57,9 +57,7 @@ export const removePhoto = createAsyncThunk<void, string, { state: RootState }>(
     const user = getState().users.user;
     if (user) {
       try {
-        await axiosApi.delete(`/gallery/${id}`, {
-          headers: {Authorization: user.token},
-        });
+        await axiosApi.delete(`/gallery/remove/${id}`, { headers: {Authorization: user.token} });
       } catch (err) {
         console.log(err);
         throw new Error('Remove photo error.');

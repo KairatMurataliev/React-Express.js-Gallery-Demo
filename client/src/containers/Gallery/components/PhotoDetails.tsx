@@ -44,7 +44,7 @@ export const PhotoDetails: React.FC<Props> = ({
                                                 handleClose,
                                                 handleOpen,
                                                 handleLike,
-                                                // handleRemovePhoto
+                                                handleRemovePhoto
                                               }) => {
   return (
     <Card sx={cardStyle}>
@@ -96,7 +96,7 @@ export const PhotoDetails: React.FC<Props> = ({
               Delete
             </Button>
           ) : photoData.author && photoData.author.id === userId ? (
-            <Button color="error" variant="outlined" startIcon={<DeleteIcon />}>
+            <Button onClick={handleRemovePhoto} color="error" variant="outlined" startIcon={<DeleteIcon />}>
               Delete
             </Button>
           ) : null
