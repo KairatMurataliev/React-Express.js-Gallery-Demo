@@ -1,14 +1,17 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import {Drawer, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
+import {Drawer, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Collapse} from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronLeft';
-import MailIcon from '@mui/icons-material/Mail';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import {PropsWithChildren} from "react";
 import {User} from "../../../types";
 import IconButton from "@mui/material/IconButton";
 import ImageIcon from '@mui/icons-material/Image';
+import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {NavLink} from "react-router-dom";
+import {ExpandLess, ExpandMore, Unpublished} from "@mui/icons-material";
 
 type Anchor = "right";
 
@@ -28,6 +31,13 @@ export const DrawerComponent: React.FC<PropsWithChildren<Props>> = ({
                                                                       openDrawer,
                                                                       handleLogout
                                                                     }) => {
+
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   const DrawerList = (
     <>
       <Box sx={{width: 300}} role="presentation">
@@ -41,6 +51,14 @@ export const DrawerComponent: React.FC<PropsWithChildren<Props>> = ({
         <Divider/>
 
         <List>
+          <ListItem disablePadding>
+            <ListItemButton component={NavLink} to={`/`}>
+              <ListItemIcon>
+                <HomeIcon/>
+              </ListItemIcon>
+              <ListItemText primary={'Home'}/>
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding>
             <ListItemButton component={NavLink} to={`/my-gallery/${user.id}`}>
               <ListItemIcon>
@@ -56,14 +74,34 @@ export const DrawerComponent: React.FC<PropsWithChildren<Props>> = ({
 
         <List>
           {user.role === 'ADMIN' && (
-            <ListItem disablePadding>
-              <ListItemButton>
+
+            <>
+              <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
-                  <MailIcon/>
+                  <AdminPanelSettingsIcon/>
                 </ListItemIcon>
-                <ListItemText primary='Admin Panel'/>
+                <ListItemText primary="Admin Settings" />
+                {open ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
-            </ListItem>
+
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }} component={NavLink} to={`/admin?published=true`}>
+                    <ListItemIcon>
+                      <PublishedWithChangesIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Published" />
+                  </ListItemButton>
+
+                  <ListItemButton sx={{ pl: 4 }} component={NavLink} to={`/admin?published=false`}>
+                    <ListItemIcon>
+                      <Unpublished />
+                    </ListItemIcon>
+                    <ListItemText primary="Unpublished" />
+                  </ListItemButton>
+                </List>
+              </Collapse>
+            </>
           )}
 
           <ListItem disablePadding onClick={handleLogout}>

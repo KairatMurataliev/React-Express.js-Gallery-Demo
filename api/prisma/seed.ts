@@ -111,7 +111,7 @@ async function up() {
         image: 'seed/photo4.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: animeCategory.id,
+        categoryId: natureCategory.id,
         published: true
       },
       {
@@ -119,7 +119,7 @@ async function up() {
         image: 'seed/photo5.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: animeCategory.id,
+        categoryId: natureCategory.id,
         published: true
       },
       {
@@ -127,7 +127,7 @@ async function up() {
         image: 'seed/photo6.jpg',
         description: 'Here is some photo description',
         authorId: user2.id,
-        categoryId: animeCategory.id,
+        categoryId: natureCategory.id,
         published: true
       },
       {
@@ -168,7 +168,7 @@ async function up() {
         image: 'seed/photo7.jpeg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: militaryCategory.id,
+        categoryId: natureCategory.id,
         published: true
       },
       {
@@ -176,7 +176,7 @@ async function up() {
         image: 'seed/photo8.jpg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: militaryCategory.id,
+        categoryId: natureCategory.id,
         published: true
       },
       {
@@ -184,7 +184,7 @@ async function up() {
         image: 'seed/photo9.jpg',
         description: 'Here is some photo description',
         authorId: admin.id,
-        categoryId: militaryCategory.id,
+        categoryId: natureCategory.id,
         published: true
       },
       {

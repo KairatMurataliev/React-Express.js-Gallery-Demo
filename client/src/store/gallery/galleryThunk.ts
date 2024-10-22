@@ -1,13 +1,17 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {Photo, PhotoMutation} from '../../types';
+import {Photo, PhotoMutation, Filters} from '../../types';
 import axiosApi from "../../axios.ts";
 import {RootState} from "../store.ts";
 
-export const getGallery = createAsyncThunk<Photo[]>(
+export const getGallery = createAsyncThunk<Photo[], Filters>(
   'gallery/get',
-  async () => {
+  async (filters) => {
     try {
-      const response = await axiosApi.get<Photo[]>('/gallery');
+      let url = '/gallery';
+      if (filters.category) {
+        url = `${url}?category=${filters.category}`;
+      }
+      const response = await axiosApi.get<Photo[]>(url);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -15,11 +19,16 @@ export const getGallery = createAsyncThunk<Photo[]>(
     }
   });
 
-export const getAuthorGallery = createAsyncThunk<Photo[], string>(
+export const getAuthorGallery = createAsyncThunk<Photo[], { id: string, filters: Filters }>(
   'gallery/getAuthor',
-  async (id) => {
+  async ({ id, filters }) => {
     try {
-      const response = await axiosApi.get<Photo[]>(`/gallery?author=${id}`);
+      let url = `/gallery?author=${id}`;
+      if (filters.category) {
+        url = `${url}&category=${filters.category}`;
+      }
+
+      const response = await axiosApi.get<Photo[]>(url);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -59,5 +68,21 @@ export const removePhoto = createAsyncThunk<void, string, { state: RootState }>(
         console.log(err);
         throw new Error('Remove photo error.');
       }
+    }
+  });
+
+export const getAdminGallery = createAsyncThunk<Photo[], boolean, { state: RootState }>(
+  'gallery/admin/get',
+  async (isPublished, { getState }) => {
+    try {
+      const user = getState().users.user;
+      if (user) {
+        const response = await axiosApi.get<Photo[]>(`/gallery/admin/get?published=${isPublished}`, { headers: {Authorization: user.token} });
+        return response.data;
+      }
+      return [];
+    } catch (err) {
+      console.log(err);
+      throw new Error('Not Authorized');
     }
   });

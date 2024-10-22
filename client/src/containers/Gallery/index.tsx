@@ -19,6 +19,7 @@ const Gallery = () => {
     selectedCategory,
     onCategorySelect,
   } = useCategories();
+
   const {
     open,
     selectedPhoto,
@@ -30,7 +31,7 @@ const Gallery = () => {
     handleOpen,
     handleClose,
     handleLike
-  } = useGallery(id || undefined);
+  } = useGallery(id, selectedCategory);
   const { submitOpen, handleToggleModal } = usePhotoSubmit();
 
   const onPhotoRemove = async (photoId: string) => {

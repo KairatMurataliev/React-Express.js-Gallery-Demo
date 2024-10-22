@@ -3,8 +3,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 
 import authRoutes from './src/routes/authRoutes';
-import gallery from './src/routes/gallery';
-import categories from './src/routes/categories';
+import gallery from './src/routes/galleryRoutes';
+import categories from './src/routes/categoriesRoutes';
 
 dotenv.config();
 

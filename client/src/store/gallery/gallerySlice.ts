@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Photo} from '../../types';
 import {RootState} from '../store.ts';
-import {submitPhoto, getGallery, getAuthorGallery, removePhoto} from "./galleryThunk";
+import {submitPhoto, getGallery, getAuthorGallery, removePhoto, getAdminGallery} from "./galleryThunk";
 
 interface GalleryState {
   list: Photo[];
@@ -74,6 +74,17 @@ export const gallerySlice = createSlice({
     });
     builder.addCase(removePhoto.rejected, (state) => {
       state.removeLoading = false;
+    });
+
+    // ADMIN GALLERY
+    builder.addCase(getAdminGallery.pending, (state) => {
+      state.fetchLoading = true;
+    });
+    builder.addCase(getAdminGallery.fulfilled, (state, {payload: list}) => {
+      state.list = list;
+    });
+    builder.addCase(getAdminGallery.rejected, (state) => {
+      state.fetchLoading = false;
     });
   },
 });

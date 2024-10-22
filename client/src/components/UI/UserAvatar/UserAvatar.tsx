@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const UserAvatar: React.FC<Props> = ({style, user}) => {
-  console.log(user);
   let avatar = '';
   if (user.avatar) {
     if (user.avatar.includes('images') || user.avatar.includes('fixtures')) {

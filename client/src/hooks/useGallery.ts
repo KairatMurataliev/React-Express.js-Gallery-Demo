@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import {Photo} from "../types";
+import {Filters, Photo} from "../types";
 import {useAppDispatch, useAppSelector} from "../store/store-hooks.ts";
 import {selectUser} from "../store/users/usersSlice.ts";
 import {getAuthorGallery, getGallery} from "../store/gallery/galleryThunk.ts";
 import {fetchLoading, selectGalleryList, selectRemoveLoading} from "../store/gallery/gallerySlice.ts";
 import {usePhotoSubmit} from "./usePhotoSubmit.ts";
 
-export const useGallery = (id?: string) => {
+export const useGallery = (id?: string, selectedCategory?: string) => {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
@@ -18,12 +18,17 @@ export const useGallery = (id?: string) => {
   const {submitOpen} = usePhotoSubmit();
 
   useEffect(() => {
-    if (id) {
-      dispatch(getAuthorGallery(id));
-    } else {
-      dispatch(getGallery());
+    const filters: Filters = { category: '' };
+    if (selectedCategory) {
+      filters.category = selectedCategory;
     }
-  }, [dispatch, id, submitOpen]);
+
+    if (id) {
+      dispatch(getAuthorGallery({id, filters}));
+    } else {
+      dispatch(getGallery(filters));
+    }
+  }, [dispatch, id, selectedCategory, submitOpen]);
 
   const handleOpen = (id: string) => {
     setOpen(true);

@@ -70,3 +70,7 @@ export type Category = {
   createdAt: string;
   updatedAt: string;
 }
+
+export type Filters = {
+  category: string;
+}
