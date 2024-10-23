@@ -1,7 +1,7 @@
 import { GlobalError, User, ValidationError } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store.ts';
-import {login, logout, register} from "./usersThunk.ts";
+import {login, logout, register, toggleFavourite} from "./usersThunk.ts";
 
 interface UsersState {
   user: User | null;
@@ -55,6 +55,11 @@ export const usersSlice = createSlice({
     builder.addCase(logout.fulfilled, (state) => {
       state.loginLoading = false;
       state.user = null;
+    });
+
+    // TOGGLE FAVOURITES
+    builder.addCase(toggleFavourite.fulfilled, (state, { payload: user }) => {
+      state.user = user;
     });
   },
 });

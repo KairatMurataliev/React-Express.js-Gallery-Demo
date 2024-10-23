@@ -2,37 +2,29 @@ import {useSearchParams} from "react-router-dom";
 import {useAppSelector} from "../../store/store-hooks.ts";
 import {selectGalleryList} from "../../store/gallery/gallerySlice.ts";
 import {useEffect} from "react";
-import {getAdminGallery, togglePublish} from "../../store/gallery/galleryThunk.ts";
 import {CategoriesFilters} from "../Gallery/components/CategoriesFilters.tsx";
 import Grid from "@mui/material/Grid2";
 import PhotoItem from "../Gallery/components/PhotoItem.tsx";
 import {useCategories} from "../../hooks/useCategories.ts";
 import {useGallery} from "../../hooks/useGallery.ts";
+import {getFavourites} from "../../store/gallery/galleryThunk.ts";
+import {toggleFavourite} from "../../store/users/usersThunk.ts";
 
-export const AdminPanel = () => {
+export const MyFavourites = () => {
   const [searchParams,] = useSearchParams( );
   const photos = useAppSelector(selectGalleryList);
 
   const { categoriesList, selectedCategory, onCategorySelect } = useCategories();
 
-  const {
-    removeLoading,
-    user,
-    dispatch,
-    handleOpen,
-    onPhotoRemove,
-  } = useGallery();
+  const {user, dispatch, handleOpen } = useGallery();
 
   useEffect(() => {
-    const isPublished: string | null = searchParams.get('published');
-    dispatch(getAdminGallery({ isPublished, filters: { category: selectedCategory }}));
+    dispatch(getFavourites({ category: selectedCategory }));
   }, [dispatch, searchParams, selectedCategory]);
 
-
-  const togglePublishPhoto = async (id: string) => {
-    const isPublished: string | null = searchParams.get('published');
-    await dispatch(togglePublish(id));
-    dispatch(getAdminGallery({ isPublished, filters: { category: selectedCategory }}));
+  const onFavouriteHandler = async (id: string) => {
+    dispatch(toggleFavourite(id));
+    dispatch(getFavourites({ category: selectedCategory }));
   }
 
   return (
@@ -52,11 +44,9 @@ export const AdminPanel = () => {
             key={photo.id}
             item={photo}
             role={user?.role}
-            handleRemovePhoto={() => onPhotoRemove(photo.id)}
             handleOpen={() => handleOpen(photo.id)}
-            togglePublishPhoto={() => togglePublishPhoto(photo.id)}
+            onFavouriteHandler={() => onFavouriteHandler(photo.id)}
             user={user}
-            removeLoading={removeLoading}
           />
         ))}
       </Grid>

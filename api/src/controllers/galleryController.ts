@@ -121,3 +121,34 @@ export const getAdminGallery = async (req: Request, res: Response) => {
     console.log(err);
   }
 }
+
+export const getFavourites = async (expressReq: Request, res: Response) => {
+  try {
+    type Query = {
+      categoryId?: { in: string[] };
+      favourites?: { in: string[] }
+      published: boolean;
+      deleted: boolean,
+    }
+    const req = expressReq as RequestWithUser;
+
+    const { favourites } = req.user;
+
+    const query: Query = {
+      published: true,
+      deleted: false,
+      favourites: { in: favourites }
+    }
+
+    if (req.query.category) {
+      const category: string = req.query.category.toString();
+      query.categoryId = { in: [category] }
+    }
+
+    const list = await prisma.photo.findMany({ where: query, include: { author: true } })
+    res.send(list)
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: 'Error' })
+  }
+}

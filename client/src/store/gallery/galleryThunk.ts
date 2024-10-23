@@ -106,3 +106,23 @@ export const togglePublish = createAsyncThunk<void, string, { state: RootState }
     }
   }
 );
+
+export const getFavourites = createAsyncThunk<Photo[], Filters, { state: RootState }>(
+  'gallery/favourites',
+  async (filters, { getState }) => {
+    const user = getState().users.user;
+    if (user) {
+      try {
+        let url = `/gallery/favourites`;
+        if (filters.category) {
+          url = `${url}&category=${filters.category}`;
+        }
+
+        const response = await axiosApi.get(url, { headers: {Authorization: user.token} });
+        return response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+);

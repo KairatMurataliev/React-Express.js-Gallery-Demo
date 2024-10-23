@@ -49,6 +49,7 @@ export type User = {
   avatar: string;
   token: string;
   role: string;
+  favourites: string[];
   createdAt: string;
   updatedAt: string;
 }

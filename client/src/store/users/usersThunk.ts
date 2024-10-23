@@ -42,12 +42,25 @@ export const login = createAsyncThunk<User, LoginMutation, { rejectValue: Global
   },
 );
 
-export const logout = createAsyncThunk<_, undefined, { state: RootState }>(
+export const logout = createAsyncThunk<void, undefined, { state: RootState }>(
   'users/logout',
   async (_, {getState}) => {
   const user = getState().users.user;
 
-  await axiosApi.delete('/auth/logout', {
-    headers: {Authorization: user?.token},
-  });
+  await axiosApi.delete('/auth/logout', { headers: {Authorization: user?.token} });
 });
+
+export const toggleFavourite = createAsyncThunk<User, string, { state: RootState }>(
+  'gallery/toggleFavourite',
+  async (id, { getState }) => {
+    const user = getState().users.user;
+    if (user) {
+      try {
+        const response = await axiosApi.put(`/users/toggleFavourite/${id}`, { headers: {Authorization: user.token} });
+        return response.data
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+);

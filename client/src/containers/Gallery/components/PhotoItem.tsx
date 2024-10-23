@@ -1,37 +1,43 @@
 import React from 'react';
 import Grid from "@mui/material/Grid2";
 import {PhotoDetails} from "./PhotoDetails.tsx";
-import {Photo} from "../../../types";
+import {Photo, User} from "../../../types";
 
 interface Props {
   item: Photo;
   role?: string;
+  isFavourite?: boolean;
   handleRemovePhoto?: () => void;
   handleOpen: () => void;
   togglePublishPhoto?: () => void;
-  userId?: string;
-  removeLoading: boolean;
+  onFavouriteHandler?: () => void;
+  user?: User | null;
+  removeLoading?: boolean;
 }
 
 const PhotoItem: React.FC<Props> = ({
                                       item,
-                                      userId,
+                                      user,
                                       handleOpen,
                                       handleRemovePhoto,
                                       role,
+                                      isFavourite,
                                       removeLoading,
-                                      togglePublishPhoto
+                                      togglePublishPhoto,
+                                      onFavouriteHandler
                                     }) => {
   return (
     <Grid size={{xs: 6, md: 4, lg: 3}}>
       <PhotoDetails
         isModal={false}
         photoData={item}
-        userId={userId}
+        user={user}
         role={role}
+        isFavourite={isFavourite}
         removeLoading={removeLoading}
         handleRemovePhoto={handleRemovePhoto}
         togglePublishPhoto={togglePublishPhoto}
+        onFavouriteHandler={onFavouriteHandler}
         handleOpen={handleOpen}
         cardStyle={{maxWidth: 400}}
         cardMediaStyle={{height: 200}}

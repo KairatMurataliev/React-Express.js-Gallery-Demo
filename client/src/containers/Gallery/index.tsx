@@ -10,6 +10,7 @@ import {Button} from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SubmitNewPhoto from "./components/SubmitNewPhoto.tsx";
 import {usePhotoSubmit} from "../../hooks/usePhotoSubmit.ts";
+import {toggleFavourite} from "../../store/users/usersThunk.ts";
 
 const Gallery = () => {
   const {id} = useParams() as { id: string };
@@ -30,8 +31,13 @@ const Gallery = () => {
     handleClose,
     handleLike,
     onPhotoRemove,
+    dispatch,
   } = useGallery(id, selectedCategory);
   const { submitOpen, handleToggleModal } = usePhotoSubmit();
+
+  const onFavouriteHandler = async (id: string) => {
+    dispatch(toggleFavourite(id));
+  }
 
   return (
     galleryLoading ? <Spinner/> : (
@@ -58,12 +64,14 @@ const Gallery = () => {
         <Grid container spacing={2}>
           {photosList.map(photo => (
             <PhotoItem
+              isFavourite={!!user?.favourites.includes(photo.id)}
               key={photo.id}
               item={photo}
               role={user?.role}
+              onFavouriteHandler={() => onFavouriteHandler(photo.id)}
               handleRemovePhoto={() => onPhotoRemove(photo.id)}
               handleOpen={() => handleOpen(photo.id)}
-              userId={user?.id}
+              user={user}
               removeLoading={removeLoading}
             />
           ))}

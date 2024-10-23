@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Photo} from '../../types';
 import {RootState} from '../store.ts';
-import {submitPhoto, getGallery, getAuthorGallery, removePhoto, getAdminGallery} from "./galleryThunk";
+import {submitPhoto, getGallery, getAuthorGallery, removePhoto, getAdminGallery, getFavourites} from "./galleryThunk";
 
 interface GalleryState {
   list: Photo[];
@@ -86,6 +86,17 @@ export const gallerySlice = createSlice({
     builder.addCase(getAdminGallery.rejected, (state) => {
       state.fetchLoading = false;
     });
+
+    // GET FAVOURITES
+    builder.addCase(getFavourites.pending, (state) => {
+      state.fetchLoading = true;
+    });
+    builder.addCase(getFavourites.fulfilled, (state, {payload: list}) => {
+      state.list = list;
+    });
+    builder.addCase(getFavourites.rejected, (state) => {
+      state.fetchLoading = false;
+    });
   },
 });
 
@@ -95,5 +106,3 @@ export const selectGalleryList = (state: RootState) => state.gallery.list;
 export const fetchLoading = (state: RootState) => state.gallery.fetchLoading;
 export const submitLoading = (state: RootState) => state.gallery.submitLoading;
 export const selectRemoveLoading = (state: RootState) => state.gallery.removeLoading;
-export const selectOpenSubmitPhoto = (state: RootState) => state.gallery.openSubmitPhoto;
-export const { submitModalOpen } = gallerySlice.actions;

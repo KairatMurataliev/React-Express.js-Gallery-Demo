@@ -18,13 +18,14 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import {Close, Favorite, Share} from "@mui/icons-material";
 import {red} from "@mui/material/colors";
 import {baseURL} from "../../../axios.ts";
-import {Photo} from '../../../types';
+import {Photo, User} from '../../../types';
 import {NavLink} from "react-router-dom";
 
 interface Props {
   photoData: Photo;
   role?: string;
-  userId?: string;
+  user?: User | null;
+  isFavourite?: boolean;
   isModal?: boolean;
   cardStyle: object | null
   cardMediaStyle: { height: number };
@@ -34,12 +35,14 @@ interface Props {
   handleLike?: (id: string) => void;
   handleRemovePhoto?: () => void;
   togglePublishPhoto?: () => void;
+  onFavouriteHandler?: () => void;
 }
 
 export const PhotoDetails: React.FC<Props> = ({
                                                 photoData,
                                                 role,
-                                                userId,
+                                                user,
+                                                isFavourite,
                                                 isModal,
                                                 cardStyle,
                                                 cardMediaStyle,
@@ -47,7 +50,8 @@ export const PhotoDetails: React.FC<Props> = ({
                                                 handleOpen,
                                                 handleLike,
                                                 handleRemovePhoto,
-                                                togglePublishPhoto
+                                                togglePublishPhoto,
+                                                onFavouriteHandler
                                               }) => {
   return (
     <Card sx={cardStyle}>
@@ -94,7 +98,7 @@ export const PhotoDetails: React.FC<Props> = ({
             </Tooltip>
           </>
         ) : (
-          (role === 'ADMIN' || photoData?.author.id === userId) && (
+          (role === 'ADMIN' || photoData?.author.id === user?.id) && (
             <Tooltip title='Remove' placement='top'>
               <IconButton onClick={handleRemovePhoto} aria-label="remove">
                 <DeleteIcon color='error'/>
@@ -112,12 +116,20 @@ export const PhotoDetails: React.FC<Props> = ({
         )}
 
         {!isModal && (
-          photoData.author && photoData.author.id !== userId && (
-            <Tooltip title='See more' placement='top'>
-              <IconButton component={NavLink} to={`/gallery/${photoData.author?.id}`} aria-label="remove">
-                <PreviewIcon color='primary'/>
-              </IconButton>
-            </Tooltip>
+          photoData.author && photoData.author.id !== user?.id && (
+           <>
+             <Tooltip title='See more' placement='top'>
+               <IconButton component={NavLink} to={`/gallery/${photoData.author?.id}`} aria-label="see more">
+                 <PreviewIcon color='primary'/>
+               </IconButton>
+             </Tooltip>
+
+             <Tooltip title={isFavourite ? 'Remove from Favourites' : 'Add to Favourites'} placement='top'>
+               <IconButton onClick={onFavouriteHandler} aria-label="remove from favourites">
+                 {isFavourite ? <Favorite color='error'/> : <Favorite color='disabled'/>}
+               </IconButton>
+             </Tooltip>
+           </>
           )
         )}
       </CardActions>

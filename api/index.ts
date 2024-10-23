@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import authRoutes from './src/routes/authRoutes';
 import gallery from './src/routes/galleryRoutes';
 import categories from './src/routes/categoriesRoutes';
+import users from './src/routes/usersRouters';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/gallery', gallery);
 app.use('/categories', categories);
+app.use('/users', users);
 
 const run = async () => {
   app.listen(PORT, () => {
