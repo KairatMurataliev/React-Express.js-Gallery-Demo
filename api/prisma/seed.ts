@@ -1,6 +1,6 @@
 import { prisma } from './prisma-client';
 import { hashSync } from 'bcrypt';
-import {generateToken} from "../src/utils/generateToken";
+import { generateToken } from "../src/utils/generateToken";
 
 async function up() {
   const user1 = await prisma.user.create({
@@ -55,7 +55,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user1.id,
         categoryId: natureCategory.id,
-        published: true
+        published: false
       },
       {
         title: 'Photo 2',
@@ -79,7 +79,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user1.id,
         categoryId: militaryCategory.id,
-        published: true
+        published: false
       },
       {
         title: 'Photo 5',
@@ -128,7 +128,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user2.id,
         categoryId: natureCategory.id,
-        published: true
+        published: false
       },
       {
         title: 'Photo 4',
@@ -144,7 +144,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user2.id,
         categoryId: militaryCategory.id,
-        published: true
+        published: false
       },
       {
         title: 'Photo 6',
@@ -160,7 +160,7 @@ async function up() {
         description: 'Here is some photo description',
         authorId: user2.id,
         categoryId: animeCategory.id,
-        published: true
+        published: false
       },
 
       {

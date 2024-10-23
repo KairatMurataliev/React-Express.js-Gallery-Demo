@@ -59,6 +59,8 @@ export type Photo = {
   image: string;
   author: User,
   category: Category;
+  published: boolean;
+  deleted: boolean;
   description?: string;
   createdAt: string;
   updatedAt: string;
@@ -72,5 +74,5 @@ export type Category = {
 }
 
 export type Filters = {
-  category: string;
+  category: string | undefined;
 }

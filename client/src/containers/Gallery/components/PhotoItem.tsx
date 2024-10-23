@@ -8,6 +8,7 @@ interface Props {
   role?: string;
   handleRemovePhoto?: () => void;
   handleOpen: () => void;
+  togglePublishPhoto?: () => void;
   userId?: string;
   removeLoading: boolean;
 }
@@ -18,7 +19,8 @@ const PhotoItem: React.FC<Props> = ({
                                       handleOpen,
                                       handleRemovePhoto,
                                       role,
-                                      removeLoading
+                                      removeLoading,
+                                      togglePublishPhoto
                                     }) => {
   return (
     <Grid size={{xs: 6, md: 4, lg: 3}}>
@@ -29,6 +31,7 @@ const PhotoItem: React.FC<Props> = ({
         role={role}
         removeLoading={removeLoading}
         handleRemovePhoto={handleRemovePhoto}
+        togglePublishPhoto={togglePublishPhoto}
         handleOpen={handleOpen}
         cardStyle={{maxWidth: 400}}
         cardMediaStyle={{height: 200}}

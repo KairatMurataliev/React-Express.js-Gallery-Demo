@@ -1,16 +1,15 @@
 import {Request, Response} from "express";
 import {prisma} from "../../prisma/prisma-client";
-import {Photo, User} from "@prisma/client";
 import {RequestWithUser} from "../../types";
 
-type Query = {
-  authorId?: { in: string[] };
-  categoryId?: { in: string[] };
-  published: boolean;
-  deleted: boolean,
-}
-
 export const getGallery = async (req: Request, res: Response) => {
+  type Query = {
+    authorId?: { in: string[] };
+    categoryId?: { in: string[] };
+    published: boolean;
+    deleted: boolean,
+  }
+
   try {
     const query: Query = {
       deleted: false,
@@ -62,36 +61,62 @@ export const submitNewPhoto = async (expressReq: Request, res: Response) => {
 export const removeMyPhoto = async (expressReq: Request, res: Response) => {
   try {
     const req = expressReq as RequestWithUser;
-    const {id} = req.params;
+    const { id } = req.params;
 
     await prisma.photo.update({
       where: {id},
       data: {deleted: true}
     })
+
     res.status(200).send({message: 'Successfully removed'})
   } catch (err) {
     console.log(err);
   }
 }
 
-export const publishPhoto = async (expressReq: Request, res: Response) => {
+export const togglePublish = async (expressReq: Request, res: Response) => {
   try {
     const req = expressReq as RequestWithUser;
     const {id} = req.params;
 
-    await prisma.photo.update({
-      where: {id},
-      data: {published: true}
-    })
-    res.status(200).send({message: 'Successfully published'})
+    const photo = await prisma.photo.findUnique({ where: { id }})
+
+    if (photo) {
+      await prisma.photo.update({
+        where: {id},
+        data: { published: !photo.published }
+      })
+      res.status(200).send({message: 'Success'})
+    } else {
+      res.status(400).send({message: 'Error'})
+    }
   } catch (err) {
     res.status(500).send({message: 'Server Error'});
   }
 }
 
 export const getAdminGallery = async (req: Request, res: Response) => {
+  type Query = {
+    categoryId?: { in: string[] };
+    published: boolean;
+    deleted: boolean,
+  }
+
   try {
-    console.log(req.query);
+    const published: boolean = req.query.published === 'true';
+
+    const query: Query = {
+      published,
+      deleted: false
+    }
+
+    if (req.query.category) {
+      const category: string = req.query.category.toString();
+      query.categoryId = { in: [category] }
+    }
+
+    const list = await prisma.photo.findMany({ where: query, include: { author: true } });
+    res.send(list);
   } catch (err) {
     console.log(err);
   }

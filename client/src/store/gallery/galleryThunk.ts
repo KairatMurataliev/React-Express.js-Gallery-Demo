@@ -71,13 +71,19 @@ export const removePhoto = createAsyncThunk<void, string, { state: RootState }>(
     }
   });
 
-export const getAdminGallery = createAsyncThunk<Photo[], boolean, { state: RootState }>(
+export const getAdminGallery = createAsyncThunk<Photo[], { isPublished: string | null, filters: Filters}, { state: RootState }>(
   'gallery/admin/get',
-  async (isPublished, { getState }) => {
+  async ({isPublished, filters}, { getState }) => {
     try {
       const user = getState().users.user;
       if (user) {
-        const response = await axiosApi.get<Photo[]>(`/gallery/admin/get?published=${isPublished}`, { headers: {Authorization: user.token} });
+
+        let url = `/gallery/admin/get?published=${isPublished}`;
+        if (filters.category) {
+          url = `${url}&category=${filters.category}`;
+        }
+
+        const response = await axiosApi.get<Photo[]>(url, { headers: {Authorization: user.token} });
         return response.data;
       }
       return [];
@@ -86,3 +92,17 @@ export const getAdminGallery = createAsyncThunk<Photo[], boolean, { state: RootS
       throw new Error('Not Authorized');
     }
   });
+
+export const togglePublish = createAsyncThunk<void, string, { state: RootState }>(
+  'gallery/admin/togglePublish',
+  async (id, { getState }) => {
+    const user = getState().users.user;
+    if (user) {
+      try {
+        await axiosApi.put(`/gallery/admin/togglePublish/${id}`, { headers: {Authorization: user.token} });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+);

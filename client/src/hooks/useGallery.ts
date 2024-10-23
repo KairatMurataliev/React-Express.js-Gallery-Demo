@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {Filters, Photo} from "../types";
 import {useAppDispatch, useAppSelector} from "../store/store-hooks.ts";
 import {selectUser} from "../store/users/usersSlice.ts";
-import {getAuthorGallery, getGallery} from "../store/gallery/galleryThunk.ts";
+import {getAuthorGallery, getGallery, removePhoto} from "../store/gallery/galleryThunk.ts";
 import {fetchLoading, selectGalleryList, selectRemoveLoading} from "../store/gallery/gallerySlice.ts";
 import {usePhotoSubmit} from "./usePhotoSubmit.ts";
 
@@ -36,6 +36,15 @@ export const useGallery = (id?: string, selectedCategory?: string) => {
     if (selected) setSelectedPhoto(selected);
   };
 
+  const onPhotoRemove = async (photoId: string) => {
+    await dispatch(removePhoto(photoId));
+    if (id) {
+      dispatch(getAuthorGallery({id, filters: { category: selectedCategory }}));
+    } else {
+      await dispatch(getGallery({ category: selectedCategory }));
+    }
+  };
+
   const handleClose = () => setOpen(prev => !prev);
 
   const handleLike = (id: string) => {
@@ -54,6 +63,7 @@ export const useGallery = (id?: string, selectedCategory?: string) => {
     dispatch,
     handleOpen,
     handleClose,
-    handleLike
+    handleLike,
+    onPhotoRemove,
   }
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PublishIcon from '@mui/icons-material/Publish';
+import UnpublishedIcon from '@mui/icons-material/Unpublished';
 import {
-  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -31,7 +32,8 @@ interface Props {
   handleClose?: () => void;
   handleOpen?: () => void;
   handleLike?: (id: string) => void;
-  handleRemovePhoto?: () => void
+  handleRemovePhoto?: () => void;
+  togglePublishPhoto?: () => void;
 }
 
 export const PhotoDetails: React.FC<Props> = ({
@@ -41,11 +43,11 @@ export const PhotoDetails: React.FC<Props> = ({
                                                 isModal,
                                                 cardStyle,
                                                 cardMediaStyle,
-                                                // removeLoading,
                                                 handleClose,
                                                 handleOpen,
                                                 handleLike,
-                                                handleRemovePhoto
+                                                handleRemovePhoto,
+                                                togglePublishPhoto
                                               }) => {
   return (
     <Card sx={cardStyle}>
@@ -92,22 +94,30 @@ export const PhotoDetails: React.FC<Props> = ({
             </Tooltip>
           </>
         ) : (
-          role === 'admin' ? (
-            <Button color="error" variant="outlined" startIcon={<DeleteIcon />}>
-              Delete
-            </Button>
-          ) : photoData.author && photoData.author.id === userId ? (
-            <Button onClick={handleRemovePhoto} color="error" variant="outlined" startIcon={<DeleteIcon />}>
-              Delete
-            </Button>
-          ) : null
+          (role === 'ADMIN' || photoData?.author.id === userId) && (
+            <Tooltip title='Remove' placement='top'>
+              <IconButton onClick={handleRemovePhoto} aria-label="remove">
+                <DeleteIcon color='error'/>
+              </IconButton>
+            </Tooltip>
+          )
+        )}
+
+        {role === 'ADMIN' && (
+          <Tooltip title={photoData.published ? 'Unpublish' : 'Publish'} placement='top'>
+            <IconButton onClick={togglePublishPhoto} aria-label="remove">
+              {photoData.published ? <UnpublishedIcon color='secondary'/> : <PublishIcon color='primary'/>}
+            </IconButton>
+          </Tooltip>
         )}
 
         {!isModal && (
           photoData.author && photoData.author.id !== userId && (
-            <Button component={NavLink} to={`/gallery/${photoData.author?.id}`} variant='outlined' startIcon={<PreviewIcon/>}>
-              See More
-            </Button>
+            <Tooltip title='See more' placement='top'>
+              <IconButton component={NavLink} to={`/gallery/${photoData.author?.id}`} aria-label="remove">
+                <PreviewIcon color='primary'/>
+              </IconButton>
+            </Tooltip>
           )
         )}
       </CardActions>

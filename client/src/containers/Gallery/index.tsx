@@ -1,6 +1,5 @@
 import {useParams} from "react-router-dom";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
-import {getAuthorGallery, getGallery, removePhoto} from "../../store/gallery/galleryThunk.ts";
 import {useGallery} from "../../hooks/useGallery.ts";
 import {useCategories} from "../../hooks/useCategories.ts";
 import {PhotoModal} from "./components/PhotoModal.tsx";
@@ -27,21 +26,12 @@ const Gallery = () => {
     galleryLoading,
     removeLoading,
     user,
-    dispatch,
     handleOpen,
     handleClose,
-    handleLike
+    handleLike,
+    onPhotoRemove,
   } = useGallery(id, selectedCategory);
   const { submitOpen, handleToggleModal } = usePhotoSubmit();
-
-  const onPhotoRemove = async (photoId: string) => {
-    await dispatch(removePhoto(photoId));
-    if (id) {
-      dispatch(getAuthorGallery(id));
-    } else {
-      await dispatch(getGallery());
-    }
-  };
 
   return (
     galleryLoading ? <Spinner/> : (
