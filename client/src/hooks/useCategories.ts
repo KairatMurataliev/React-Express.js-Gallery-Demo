@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../store/store-hooks.ts";
-import {getCategoriesList} from "../store/categories/categoryThunk.ts";
+import {getCategoriesList, removeCategory} from "../store/categories/categoryThunk.ts";
 import {selectCategoriesList} from "../store/categories/categorySlice.ts";
 
 export const useCategories = () => {
@@ -20,10 +20,15 @@ export const useCategories = () => {
     }
   };
 
+  const onCategoryRemove = (id: string) => {
+    dispatch(removeCategory(id));
+  }
+
   return {
     categoriesList,
     selectedCategory,
     onCategorySelect,
+    onCategoryRemove,
     dispatch,
   }
 }

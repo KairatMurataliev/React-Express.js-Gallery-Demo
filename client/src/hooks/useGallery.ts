@@ -47,10 +47,6 @@ export const useGallery = (id?: string, selectedCategory?: string) => {
 
   const handleClose = () => setOpen(prev => !prev);
 
-  const handleLike = (id: string) => {
-    console.log(id, 'PHOTO  ID');
-  }
-
   return {
     open,
     selectedPhoto,
@@ -63,7 +59,6 @@ export const useGallery = (id?: string, selectedCategory?: string) => {
     dispatch,
     handleOpen,
     handleClose,
-    handleLike,
     onPhotoRemove,
   }
 }

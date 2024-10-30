@@ -9,6 +9,7 @@ import Register from "./containers/Auth/Register.tsx";
 import Login from "./containers/Auth/Login.tsx";
 import {AdminPanel} from "./containers/Admin";
 import {MyFavourites} from "./containers/MyFavourites";
+import {Categories} from "./containers/Categories";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/gallery/:id" element={<Gallery/>}/>
             <Route path="/admin" element={<AdminPanel/>}/>
+            <Route path="/admin/categories" element={<Categories />}/>
             <Route path="/favourites" element={<MyFavourites />}/>
             <Route path="/my-gallery/:id" element={
               <ProtectedRoute isAllowed={!!user}>

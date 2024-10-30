@@ -23,7 +23,6 @@ import {NavLink} from "react-router-dom";
 
 interface Props {
   photoData: Photo;
-  role?: string;
   user?: User | null;
   isFavourite?: boolean;
   isModal?: boolean;
@@ -40,7 +39,6 @@ interface Props {
 
 export const PhotoDetails: React.FC<Props> = ({
                                                 photoData,
-                                                role,
                                                 user,
                                                 isFavourite,
                                                 isModal,
@@ -98,7 +96,7 @@ export const PhotoDetails: React.FC<Props> = ({
             </Tooltip>
           </>
         ) : (
-          (role === 'ADMIN' || photoData?.author.id === user?.id) && (
+          (user?.role === 'ADMIN' || photoData?.author.id === user?.id) && (
             <Tooltip title='Remove' placement='top'>
               <IconButton onClick={handleRemovePhoto} aria-label="remove">
                 <DeleteIcon color='error'/>
@@ -107,7 +105,7 @@ export const PhotoDetails: React.FC<Props> = ({
           )
         )}
 
-        {role === 'ADMIN' && (
+        {user?.role === 'ADMIN' && (
           <Tooltip title={photoData.published ? 'Unpublish' : 'Publish'} placement='top'>
             <IconButton onClick={togglePublishPhoto} aria-label="remove">
               {photoData.published ? <UnpublishedIcon color='secondary'/> : <PublishIcon color='primary'/>}

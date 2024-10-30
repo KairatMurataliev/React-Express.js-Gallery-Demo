@@ -34,16 +34,19 @@ async function up() {
   const natureCategory = await prisma.category.create({
     data: {
       name: 'Nature',
+      deleted: false,
     }
   });
   const animeCategory = await prisma.category.create({
     data: {
       name: 'Anime',
+      deleted: false,
     }
   });
   const militaryCategory = await prisma.category.create({
     data: {
       name: 'Military',
+      deleted: false,
     }
   });
 

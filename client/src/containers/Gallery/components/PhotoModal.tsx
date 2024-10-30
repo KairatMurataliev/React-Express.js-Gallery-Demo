@@ -1,16 +1,17 @@
 import * as React from 'react';
-import {Photo} from "../../../types";
+import {Photo, User} from "../../../types";
 import { Modal } from "@mui/material";
 import {PhotoDetails} from "./PhotoDetails.tsx";
 
 interface Props {
   selectedPhoto: Photo;
+  user: User | null;
   open: boolean;
   handleClose: () => void;
-  handleLike: (id: string) => void
+  onFavouriteHandler?: () => void;
 }
 
-export const PhotoModal: React.FC<Props> = ({selectedPhoto, open, handleClose, handleLike}) => {
+export const PhotoModal: React.FC<Props> = ({selectedPhoto, user, open, handleClose, onFavouriteHandler}) => {
   return (
     <Modal
       open={open}
@@ -18,12 +19,13 @@ export const PhotoModal: React.FC<Props> = ({selectedPhoto, open, handleClose, h
       aria-labelledby="modal-modal-title"
     >
       <PhotoDetails
+        user={user}
         isModal={true}
         photoData={selectedPhoto}
         cardStyle={{maxWidth: 800, margin: 'auto', marginTop: '5%'}}
         cardMediaStyle={{height: 300}}
-        handleLike={handleLike}
         handleClose={handleClose}
+        onFavouriteHandler={onFavouriteHandler}
       />
     </Modal>
   )

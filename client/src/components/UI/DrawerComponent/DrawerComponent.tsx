@@ -4,6 +4,7 @@ import {Drawer, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemT
 import ChevronRightIcon from '@mui/icons-material/ChevronLeft';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
+import CategoryIcon from '@mui/icons-material/Category';
 import {PropsWithChildren} from "react";
 import {User} from "../../../types";
 import IconButton from "@mui/material/IconButton";
@@ -98,6 +99,13 @@ export const DrawerComponent: React.FC<PropsWithChildren<Props>> = ({
                       <Unpublished />
                     </ListItemIcon>
                     <ListItemText primary="Unpublished" />
+                  </ListItemButton>
+
+                  <ListItemButton sx={{ pl: 4 }} component={NavLink} to={`/admin/categories`}>
+                    <ListItemIcon>
+                      <CategoryIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Categories" />
                   </ListItemButton>
                 </List>
               </Collapse>

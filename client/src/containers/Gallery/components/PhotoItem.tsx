@@ -5,7 +5,6 @@ import {Photo, User} from "../../../types";
 
 interface Props {
   item: Photo;
-  role?: string;
   isFavourite?: boolean;
   handleRemovePhoto?: () => void;
   handleOpen: () => void;
@@ -20,7 +19,6 @@ const PhotoItem: React.FC<Props> = ({
                                       user,
                                       handleOpen,
                                       handleRemovePhoto,
-                                      role,
                                       isFavourite,
                                       removeLoading,
                                       togglePublishPhoto,
@@ -32,7 +30,6 @@ const PhotoItem: React.FC<Props> = ({
         isModal={false}
         photoData={item}
         user={user}
-        role={role}
         isFavourite={isFavourite}
         removeLoading={removeLoading}
         handleRemovePhoto={handleRemovePhoto}

@@ -29,7 +29,6 @@ const Gallery = () => {
     user,
     handleOpen,
     handleClose,
-    handleLike,
     onPhotoRemove,
     dispatch,
   } = useGallery(id, selectedCategory);
@@ -67,7 +66,6 @@ const Gallery = () => {
               isFavourite={!!user?.favourites.includes(photo.id)}
               key={photo.id}
               item={photo}
-              role={user?.role}
               onFavouriteHandler={() => onFavouriteHandler(photo.id)}
               handleRemovePhoto={() => onPhotoRemove(photo.id)}
               handleOpen={() => handleOpen(photo.id)}
@@ -81,8 +79,9 @@ const Gallery = () => {
           <PhotoModal
             open={open}
             selectedPhoto={selectedPhoto}
+            onFavouriteHandler={() => onFavouriteHandler(selectedPhoto.id)}
+            user={user}
             handleClose={handleClose}
-            handleLike={handleLike}
           />
         )}
 
